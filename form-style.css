@@ -1,0 +1,88 @@
+* {
+  box-sizing: border-box;
+  font-family: 'Segoe UI', sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: #f8f9fc;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.auth-container {
+  background: white;
+  padding: 30px 40px;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+}
+
+.auth-container h2 {
+  margin-bottom: 20px;
+  color: #4a00e0;
+}
+
+.auth-container input {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0 20px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 16px;
+}
+
+.auth-container button {
+  width: 100%;
+  padding: 10px;
+  background: #4a00e0;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.auth-container button:hover {
+  background: #6b00ff;
+}
+
+.auth-container p {
+  margin-top: 20px;
+}
+
+.auth-container a {
+  color: #4a00e0;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.auth-container a:hover {
+  text-decoration: underline;
+}
+.back-arrow-container {
+  position: fixed;  /* fix it relative to the viewport */
+  top: 20px;        /* distance from the top */
+  left: 20px;       /* distance from the left */
+  z-index: 1000;    /* make sure it stays on top */
+}
+
+.back-arrow {
+  font-size: 18px;
+  color: #4a00e0;
+  text-decoration: none;
+  font-weight: 600;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.back-arrow:hover {
+  color: #007bff;
+}

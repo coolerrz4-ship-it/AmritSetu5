@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script src="auth-ui.js"></script>
+
+<script src="script.js"></script>
+<link rel="icon" href="favicon.png" type="image/png">  <title>AmritSetu - Premium Plans</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    .plans-section {
+      text-align: center;
+      padding: 40px 20px;
+    }
+
+    .plans-section h2 {
+      font-size: 32px;
+      margin-bottom: 10px;
+      color: #4a00e0;
+    }
+
+    .plans-section p {
+      font-size: 16px;
+      color: #666;
+      margin-bottom: 40px;
+    }
+
+    .plans-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 30px;
+    }
+
+    .plan-card {
+      background-color: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+      padding: 30px 20px;
+      width: 280px;
+      transition: transform 0.3s;
+      border-top: 5px solid #4a00e0;
+    }
+
+    .plan-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .plan-title {
+      font-size: 22px;
+      margin-bottom: 10px;
+    }
+
+    .plan-price {
+      font-size: 24px;
+      font-weight: bold;
+      color: #4a00e0;
+      margin-bottom: 20px;
+    }
+
+    .plan-features {
+      list-style: none;
+      padding: 0;
+      text-align: left;
+      margin-bottom: 20px;
+    }
+
+    .plan-features li {
+      margin-bottom: 10px;
+      padding-left: 20px;
+      position: relative;
+    }
+
+    .plan-features li::before {
+      content: "✔";
+      color: #4a00e0;
+      position: absolute;
+      left: 0;
+    }
+
+    .choose-button {
+      background: #4a00e0;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 15px;
+    }
+
+    .choose-button:hover {
+      background: #6b00ff;
+    }
+
+    .free-plan {
+      border-top-color: #28a745;
+    }
+
+    .free-plan .plan-price {
+      color: #28a745;
+    }
+  </style>
+</head>
+<body>
+  <header>
+  
+
+     <nav>
+<div class="nav">
+   <div class="logo">     <a href="welcome.html"> <h1>
+<span class="blue">Amrit</span><span class="purple">Setu</span>🌿
+</h1></a><script>
+  document.addEventListener("DOMContentLoaded", () => {
+  const user = JSON.parse(localStorage.getItem("currentUser"));
+
+  // Select the h1 element (you can adjust the selector if needed)
+  const heading = document.querySelector("h1");
+
+  if (heading && user) {
+    heading.addEventListener("click", () => {
+      window.location.href = "welcome.html";
+    });
+  }
+});
+
+</script>
+</div>
+<div>
+      <a href="records.html">Dashboard</a>
+   <a href="ai-insights.html">AI Insights</a>
+    <a href="premium.html">Premium Plans</a>
+</div>
+</div>
+  </nav>
+
+    <div class="auth-buttons">
+      <a href="login.html" class="login-btn">Login</a>
+      <a href="signup.html" class="signup-btn">Sign Up</a>
+    </div>
+  </header>
+
+  <section class="plans-section">
+    <h2>💎 Choose Your Premium Plan</h2>
+    <p>Select the plan that suits your health journey best.</p>
+
+    <div class="plans-container">
+      
+      <!-- Free Plan -->
+      <div class="plan-card free-plan">
+        <div class="plan-title">🌱 Care Basic</div>
+        <div class="plan-price">Free</div>
+        <ul class="plan-features">
+          <li>Store up to 6 records</li>
+          <li>Access AI health insights</li>
+          <li>Basic allergy alerts</li>
+        </ul>
+        <button class="choose-button">Current Plan</button>
+      </div>
+
+      <!-- Plus Plan -->
+      <div class="plan-card">
+        <div class="plan-title">✨ Care Plus</div>
+        <div class="plan-price">₹199 / month</div>
+        <ul class="plan-features">
+          <li>Unlimited record storage</li>
+          <li>Advanced AI insights</li>
+          <li>Priority allergy alerts</li>
+          <li>Email reminders</li>
+        </ul>
+        <button class="choose-button">Choose Plan</button>
+      </div>
+
+      <!-- Pro Plan -->
+      <div class="plan-card">
+        <div class="plan-title">🚀 Care Pro</div>
+        <div class="plan-price">₹499 / month</div>
+        <ul class="plan-features">
+          <li>Everything in Plus</li>
+          <li>Direct doctor chat</li>
+          <li>Custom health reports</li>
+          <li>24x7 assistance</li>
+        </ul>
+        <button class="choose-button">Choose Plan</button>
+      </div>
+
+    </div>
+  </section>
+</body>
+</html>

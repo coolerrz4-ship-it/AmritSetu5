@@ -1,0 +1,206 @@
+<!-- home.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link rel="icon" href="favicon.png" type="image/png">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AmritSetu – One Life-One Record-One App.</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    .hero {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 80px 20px;
+      background: linear-gradient(to right, #8e2de2, #4a00e0);
+      color: white;
+    }
+
+    .hero h1 {
+      font-size: 48px;
+      margin-bottom: 20px;
+    }
+
+    .hero p {
+      font-size: 18px;
+      max-width: 700px;
+      margin-bottom: 30px;
+    }
+
+    .cta-button {
+      padding: 14px 30px;
+      font-size: 16px;
+      background: white;
+      color: #4a00e0;
+      font-weight: bold;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .cta-button:hover {
+      background: #f2f2f2;
+    }
+
+   .section {
+  padding: 30px 20px; /* reduced from 60px */
+  max-width: 1000px;
+  margin: auto;
+}
+
+
+    .section h2 {
+  font-size: 32px;
+  color: #4a00e0;
+  margin-bottom: 10px; /* reduced from 20px */
+}
+
+.section p {
+  font-size: 18px;
+  margin-bottom: 20px; /* reduced from 30px */
+  color: #555;
+}
+
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+    }
+
+    .feature-box {
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+    }
+
+    .feature-box h3 {
+      color: #4a00e0;
+      margin-bottom: 10px;
+    }
+
+    .footer {
+      background: #f1f1f1;
+      padding: 30px 20px;
+      text-align: center;
+      color: #666;
+    }
+
+ .nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px;
+}
+
+/* Make navigation links bigger */
+.nav a {
+  color: #4a00e0;
+  margin: 0 16px;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+/* Make the logo bigger than the other links */
+.logo a {
+  font-size: 26px; /* Larger than the 18px nav links */
+  font-weight: 900;
+  text-decoration: none;
+  color: #4a00e0;
+}
+
+
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <div class="nav">
+    <div class="logo"><a href="Index.html">Amrit<span style="color:#8e2de2">Setu</span>🌿</a></div>
+    <div>
+      <a href="our-team.html">Team</a>
+      <a href="compare.html">Comparison</a>
+      <a href="legal.html">Legal</a>
+    </div>
+  </div>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <h1>One Life. One Record. One App.</h1>
+    <p>AmritSetu connects patients and clinics through a smart, AI-powered health vault — secure, portable, and intelligent.</p>
+    <a href="signup.html"><button class="cta-button">Get Started for Free</button></a>
+  </section>
+
+  <!-- Problem -->
+  <section class="section">
+    <h2>The Problem</h2>
+    <p>“Every time a clinic meets a new patient, their health story resets.” India's healthcare is fragmented — reports get lost, data sits idle, and decisions are delayed. So, we decided to introduce AmritSetu- an AI powered bridge between clinics and patients.</p>
+  </section>
+
+  <!-- Solution -->
+  <section class="section">
+    <h2>Our Solution</h2>
+    <div class="features-grid">
+      <div class="feature-box">
+        <h3>🔐 Secure Digital Locker</h3>
+        <p>Clinics get a branded portal that automatically organizes and shares records with patients.</p>
+      </div>
+      <div class="feature-box">
+        <h3>📱 Lifelong Health Vault</h3>
+        <p>Patients carry one health identity — across clinics, cities, and time. Always accessible.</p>
+      </div>
+      <div class="feature-box">
+        <h3>🧠 AI Health Insights</h3>
+        <p>Real-time analysis, risk flags, and preventive alerts — empowering smarter decisions.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- How It Works -->
+  <section class="section">
+    <h2>How It Works</h2>
+    <p>
+      ✅ Clinics sync records directly into AmritSetu<br>
+      ✅ Patients scan reports or link their ABHA ID<br>
+      ✅ AI organizes, analyzes, and flags health risks<br>
+      <br>
+      Patients have full control over who sees what — privacy-first, always.
+    </p>
+  </section>
+
+  <!-- Market & Vision -->
+  <section class="section">
+    <h2>Why Now?</h2>
+    <p>
+      With 20–25% CAGR in digital health, AmritSetu is tapping into the Indian market, starting with urban clinics and chronic care. Our 2026 roadmap includes AI doctor connect and insurance integrations.
+    </p>
+  </section>
+
+  <!-- Call to Action -->
+  <section class="hero" style="background: #4a00e0;">
+    <h1>Ready to Take Control of Your Health?</h1>
+    <p>Join 10,000+ patients already organizing their records with AmritSetu. Wait, are you already one of them? Then why wait?</p>
+    <a href="login.html"><button class="cta-button">Login</button></a>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    © 2025 AmritSetu. Built with ❤️ in India. |*Disclaimer: Student made prototype, do not take seriously.
+  </footer>
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const user = JSON.parse(localStorage.getItem("currentUser"));
+    if (user) {
+      window.location.href = "welcome.html";
+    }
+  });
+</script>
+
+</body>
+</html>

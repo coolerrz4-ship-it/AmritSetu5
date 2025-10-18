@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<script>
+  (() => {
+    const user = JSON.parse(localStorage.getItem("currentUser"));
+    // If not logged in, redirect to login
+    if (!user) {
+      // If current path is login or signup, skip
+      const p = window.location.pathname;
+      if (!p.includes("login.html") && !p.includes("signup.html")) {
+        window.location.replace("login.html");
+      }
+    }
+  })();
+</script>
+
+<head>
+<link rel="icon" href="favicon.png" type="image/png">
+<script src="auth-ui.js"></script>
+  <title>AmritSetu - AI Insights</title>
+  <link rel="stylesheet" href="styles.css"/>
+</head>
+<body>
+  <header>
+    <nav>
+<div class="nav">
+   <div class="logo">     <a href="welcome.html"> <h1>
+<span class="blue">Amrit</span><span class="purple">Setu</span>🌿
+</h1></a></div>
+<div>
+      <a href="records.html">Dashboard</a>
+   <a href="ai-insights.html">AI Insights</a>
+    <a href="premium.html">Premium Plans</a>
+</div>
+</div>
+  </nav>
+    <div class="auth-buttons">
+ <button id="loginBtn" class="login-btn">Login</button>
+  <button id="signupBtn" class="signup-btn">Sign Up</button>
+
+ </div>
+</div> </header>
+
+  <section class="summary">
+    <div class="card">📄 <p>Total Records<br><strong>6</strong></p></div>
+    <div class="card">🏥 <p>Hospitals & Clinics<br><strong>3</strong></p></div>
+    <div class="card">🕒 <p>Last Updated<br><strong>2 days ago</strong></p></div>
+  </section>
+
+  <section class="insights">
+   <h2>
+  <span class="glow-star">✧˖°</span> AI Health Insights
+</h2>
+<label class="switch">
+      <input type="checkbox" id="toggleInsights" checked>
+      <span class="slider round"></span>
+    </label>
+<div id="insightsContent" style="margin-top: 20px;">
+  <div class="insight-card suggestion">
+      <h3>🩺 Time for annual check-up</h3>
+      <p>It’s time to review your latest physical examination. Consider scheduling an appointment.</p>
+      <button>Schedule</button>
+    </div>
+
+    <div class="insight-card green">
+      <h3>🧪 Thyroid levels trending normal</h3>
+      <p>Based on your last TSH reports, thyroid function seems stable and within normal range.</p>
+    </div>
+
+    <div class="insight-card alert">
+      <h3>🫀 Cholesterol management</h3>
+      <p>Your recent bloodwork shows slightly elevated cholesterol levels. Adding fiber and reducing fat intake may help.</p>
+    </div>
+
+    <div class="insight-card warning">
+      <h3>🌿 Seasonal allergy alert</h3>
+      <p>Based on your prescription and recent season, you may experience allergy symptoms. Keep your medication handy.</p>
+    </div>
+</div>
+  </section>
+<!-- Modal -->
+<div id="scheduleModal" class="modal">
+  <div class="modal-content">
+    <span class="close-btn">&times;</span>
+    <h3>📅 Schedule Your Check-Up</h3>
+
+    <label for="clinic">Choose Clinic:</label>
+    <select id="clinic">
+      <option value="lifecare">Lifecare Clinic</option>
+      <option value="genesis">Genesis Hospital</option>
+      <option value="metro">Metro Imaging Center</option>
+    </select>
+
+    <label for="date">Select Date:</label>
+    <input type="date" id="date" />
+
+    <label for="time">Select Time:</label>
+    <select id="time">
+      <option value="9am">09:00 AM</option>
+      <option value="11am">11:00 AM</option>
+      <option value="2pm">02:00 PM</option>
+      <option value="4pm">04:00 PM</option>
+    </select>
+
+    <button id="confirmSchedule">Confirm Appointment</button>
+  </div>
+</div>
+</body>
+<script>
+  document.getElementById("loginBtn").addEventListener("click", () => {
+    window.location.href = "login.html";
+  });
+
+  document.getElementById("signupBtn").addEventListener("click", () => {
+    window.location.href = "signup.html";
+  });
+</script>
+<script>
+  // Open modal
+  document.querySelector(".suggestion button").addEventListener("click", () => {
+    document.getElementById("scheduleModal").style.display = "block";
+  });
+
+  // Close modal
+  document.querySelector(".close-btn").addEventListener("click", () => {
+    document.getElementById("scheduleModal").style.display = "none";
+  });
+
+  // Optional: close when clicking outside modal
+  window.addEventListener("click", function (e) {
+    const modal = document.getElementById("scheduleModal");
+    if (e.target === modal) {
+      modal.style.display = "none";
+    }
+  });
+
+  // Confirm scheduling
+  document.getElementById("confirmSchedule").addEventListener("click", () => {
+    const clinic = document.getElementById("clinic").value;
+    const date = document.getElementById("date").value;
+    const time = document.getElementById("time").value;
+
+    if (!date || !time) {
+      alert("Please select both date and time.");
+      return;
+    }
+
+    alert(`✅ Appointment scheduled at ${clinic} on ${date} at ${time}`);
+    document.getElementById("scheduleModal").style.display = "none";
+  });
+</script>
+<script src="script.js"></script>
+
+<script src="chat-widget.js"></script>
+<script>
+  const toggle = document.getElementById("toggleInsights");
+  const content = document.getElementById("insightsContent");
+
+  // Load saved preference from localStorage or default to true
+  const savedPref = localStorage.getItem("showAIInsights");
+  const showInsights = savedPref === null ? true : savedPref === "true";
+
+  toggle.checked = showInsights;
+  content.style.display = showInsights ? "block" : "none";
+
+  toggle.addEventListener("change", () => {
+    const isChecked = toggle.checked;
+    content.style.display = isChecked ? "block" : "none";
+    // Save preference in localStorage
+    localStorage.setItem("showAIInsights", isChecked);
+  });
+</script>
+<style>
+  /* Toggle switch CSS */
+  .switch {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 26px;
+  }
+
+  .switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-color: #ccc;
+    transition: 0.4s;
+    border-radius: 34px;
+  }
+
+  .slider:before {
+    position: absolute;
+    content: "";
+    height: 18px;
+    width: 18px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: 0.4s;
+    border-radius: 50%;
+  }
+
+  input:checked + .slider {
+    background-color: #4a00e0;
+  }
+
+  input:checked + .slider:before {
+    transform: translateX(24px);
+  }
+</style>
+</html>

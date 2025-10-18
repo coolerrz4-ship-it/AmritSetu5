@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Compare – AmritSetu</title>
+  <link rel="icon" href="favicon.png" type="image/png">
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    body {
+      font-family: "Helvetica Neue", Arial, sans-serif;
+      background: #fafafa;
+      margin: 0;
+      color: #333;
+    }
+
+    .nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px;
+    }
+
+    .nav a {
+      color: #4a00e0;
+      margin: 0 16px;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 18px;
+    }
+
+    .logo a {
+      font-size: 26px;
+      font-weight: 900;
+      text-decoration: none;
+      color: #4a00e0;
+    }
+
+    .hero {
+      background: linear-gradient(to right, #8e2de2, #4a00e0);
+      color: white;
+      text-align: center;
+      padding: 60px 20px;
+    }
+
+    .hero h1 {
+      font-size: 42px;
+      margin-bottom: 10px;
+    }
+
+    .hero p {
+      font-size: 18px;
+      max-width: 700px;
+      margin: auto;
+    }
+
+    .section {
+      padding: 60px 20px;
+      max-width: 1000px;
+      margin: auto;
+    }
+
+    .section h2 {
+      font-size: 32px;
+      color: #4a00e0;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .compare-image {
+      display: flex;
+      justify-content: center;
+      margin: 40px 0;
+    }
+
+    .compare-image img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    }
+
+    .compare-table {
+      margin-top: 40px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: white;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+    }
+
+    th, td {
+      padding: 16px;
+      text-align: left;
+      border-bottom: 1px solid #eee;
+    }
+
+    th {
+      background-color: #f3f3f3;
+      color: #4a00e0;
+    }
+
+    tr:hover {
+      background-color: #fafafa;
+    }
+
+    .footer {
+      background: #f1f1f1;
+      padding: 30px 20px;
+      text-align: center;
+      color: #666;
+    }
+
+    @media (max-width: 600px) {
+      .hero h1 {
+        font-size: 28px;
+      }
+
+      th, td {
+        font-size: 14px;
+      }
+    }
+.compare-image img {
+  max-width: 800px;
+  width: 100%;
+  ...
+}
+
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <div class="nav">
+    <div class="logo"><a href="index.html">Amrit<span style="color:#8e2de2">Setu</span>🌿</a></div>
+    <div>
+      <a href="our-team.html">Team</a>
+      <a href="compare.html">Comparison</a>
+      <a href="legal.html">Legal</a>
+    </div>
+  </div>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <h1>Why AmritSetu Stands Out</h1>
+    <p>Compare AmritSetu with other health platforms like Eka Care, Apple Health, Driefcase & more.</p>
+  </section>
+
+
+  <!-- Feature Comparison Table -->
+  <section class="section compare-table">
+    <h2>Feature Comparison</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Feature</th>
+          <th>AmritSetu</th>
+          <th>Apple Health</th>
+          <th>Eka Care</th>
+          <th>Driefcase</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>AI Health Insights</td>
+          <td>✅</td>
+          <td>❌</td>
+          <td>❌</td>
+          <td>❌</td>
+        </tr>
+        <tr>
+          <td>ABHA Integration</td>
+          <td>✅</td>
+          <td>❌</td>
+          <td>✅</td>
+          <td>✅</td>
+        </tr>
+        <tr>
+          <td>Pricing</td>
+          <td>Affordable</td>
+          <td>Expensive (Apple Devices Only)</td>
+          <td>Free</td>
+          <td>Freemium</td>
+        </tr>
+        <tr>
+          <td>Personal Health Locker</td>
+          <td>✅</td>
+          <td>❌</td>
+          <td>✅</td>
+          <td>✅</td>
+        </tr>
+        <tr>
+          <td>Smart Sharing with Doctors</td>
+          <td>✅</td>
+          <td>❌</td>
+          <td>❌</td>
+          <td>❌</td>
+        </tr>
+        <tr>
+          <td>Offline Access</td>
+          <td>Limited (opens stored records)</td>
+          <td>❌</td>
+          <td>Limited</td>
+          <td>Limited</td>
+        </tr>
+        <tr>
+          <td>Multi-Language Support</td>
+          <td>✅</td>
+          <td>❌</td>
+          <td>❌</td>
+          <td>❌</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  </body>
+</html>

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<script>
+  (() => {
+    const user = JSON.parse(localStorage.getItem("currentUser"));
+    // If not logged in, redirect to login
+    if (!user) {
+      // If current path is login or signup, skip
+      const p = window.location.pathname;
+      if (!p.includes("login.html") && !p.includes("signup.html")) {
+        window.location.replace("login.html");
+      }
+    }
+  })();
+</script>
+
+<head>
+<script src="auth-ui.js"></script>
+<link rel="icon" href="favicon.png" type="image/png">  <title>AmritSetu - My Medical Records</title>
+  <!-- External stylesheet -->
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header>
+  
+   <nav>
+<div class="nav">
+   <div class="logo">     <a href="welcome.html"> <h1>
+<span class="blue">Amrit</span><span class="purple">Setu</span>🌿
+</h1></a></div>
+<div>
+      <a href="records.html">Dashboard</a>
+   <a href="ai-insights.html">AI Insights</a>
+    <a href="premium.html">Premium Plans</a>
+</div>
+</div>
+  </nav>
+
+    <div class="auth-buttons">
+      <button id="loginBtn" class="login-btn">Login</button>
+<button id="signupBtn" class="signup-btn">Sign Up</button>
+    </div>
+<div class="profile-container" id="profileContainer" style="display: none;">
+  <div class="profile-name" id="profileName"></div>
+  <button class="logout-btn" id="logoutBtn">Logout</button>
+</div>
+</div>
+  </header>
+
+  <section class="records">
+   <div class="search-upload">
+  <input type="text" placeholder="Search records..." />
+  <input type="file" id="fileUpload" style="display:none" />
+  <button id="uploadBtn">📤 Upload</button>
+</div>
+<div class="record-grid">
+    <div class="record-card">
+  <h3>Complete Blood Count</h3>
+  <p>📍 Genesis Hospital<br>👨‍⚕️ Dr. Mehra</p>
+  <button onclick="window.open('cbc-report.pdf', '_blank')">View Record</button>
+</div>
+
+
+    <div class="record-card">
+        <h3>Annual Physical Examination</h3>
+        <p>📍 Lifecare Clinic<br>👨‍⚕️ Dr. Shah</p>
+        <button>View Record</button>
+      </div>
+
+      <div class="record-card">
+        <h3>Chest X-Ray</h3>
+        <p>📍 Metro Imaging Center<br>👨‍⚕️ Dr. Patel</p>
+        <button>View Record</button>
+      </div>
+
+      <div class="record-card">
+        <h3>Appendectomy Discharge Summary</h3>
+        <p>📍 Genesis Hospital<br>👨‍⚕️ Dr. Mehra</p>
+        <button>View Record</button>
+      </div>
+
+      <div class="record-card">
+        <h3>Thyroid Function Test</h3>
+        <p>📍 City Lab<br>👨‍⚕️ Dr. Singh</p>
+        <button>View Record</button>
+      </div>
+
+      <div class="record-card">
+        <h3>Allergy Prescription</h3>
+        <p>📍 Lifecare Clinic<br>👨‍⚕️ Dr. Sharma</p>
+        <button>View Record</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- External JS -->
+  <script src="script.js"></script>
+<script>
+  document.getElementById("loginBtn").addEventListener("click", () => {
+    window.location.href = "login.html";
+  });
+
+  document.getElementById("signupBtn").addEventListener("click", () => {
+    window.location.href = "signup.html";
+  });
+</script>
+</body>
+</html>
