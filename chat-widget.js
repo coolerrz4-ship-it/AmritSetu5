@@ -7,7 +7,7 @@
     <div id="chat-toggle" title="Ask Health Questions">💬</div>
     <div id="chat-box" style="display:none;">
       <div id="chat-header">
-        <span>Welcome to AmritChat!</span>
+        <span>Welcome to AmritChat!(This is only a rule-based model. To view our beta AI model, <a href="https://www.chatbase.co/MvQTZMF-L-TQJoodnRKiT/help" target="_blank" style="color: white;">Click Here</a></span>
         <button id="chat-close" title="Close Chat">×</button>
       </div>
       <div id="chat-messages"></div>
@@ -291,3 +291,4 @@ response: "I am AmritChat-your 24/7 available health assistant."
     }, 800); // simulate delay
   });
 })();
+
