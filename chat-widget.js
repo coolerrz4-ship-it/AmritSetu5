@@ -57,7 +57,7 @@
     #chat-header {
       background: #4a00e0;
       color: white;
-      padding: 10px;
+      padding: 5px;
       font-weight: bold;
       display: flex;
       justify-content: space-between;
@@ -291,4 +291,5 @@ response: "I am AmritChat-your 24/7 available health assistant."
     }, 800); // simulate delay
   });
 })();
+
 
