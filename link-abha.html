@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Link Your ABHA ID – AmritSetu</title>
+  <link rel="icon" href="favicon.png" type="image/png">
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    body {
+      background: #fafafa;
+      font-family: "Segoe UI", sans-serif;
+      color: #333;
+      margin: 0;
+    }
+
+    .link-section {
+      max-width: 800px;
+      margin: 60px auto;
+      background: white;
+      border-radius: 10px;
+      padding: 40px 30px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+
+    .link-section h1 {
+      color: #4a00e0;
+      font-size: 32px;
+      margin-bottom: 15px;
+    }
+
+    .link-section p {
+      color: #555;
+      font-size: 17px;
+      line-height: 1.6;
+      margin-bottom: 25px;
+    }
+.logo a {
+  font-size: 26px; /* Larger than the 18px nav links */
+  font-weight: 900;
+  text-decoration: none;
+  color: #4a00e0;
+}
+
+    .qr-box {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 30px 0;
+    }
+
+    .qr-box img {
+      width: 220px;
+      height: 220px;
+      border: 6px solid #eee;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    .manual-entry {
+      margin-top: 25px;
+    }
+
+    .manual-entry input {
+      padding: 10px;
+      width: 60%;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 16px;
+    }
+
+    .manual-entry button {
+      background: #4a00e0;
+      color: white;
+      border: none;
+      padding: 10px 16px;
+      border-radius: 6px;
+      margin-left: 8px;
+      cursor: pointer;
+      font-size: 16px;
+      transition: background-color 0.3s ease;
+    }
+
+    .manual-entry button:hover {
+      background-color: #6b00ff;
+    }
+
+    .success-box {
+      margin-top: 30px;
+      padding: 15px;
+      border-radius: 8px;
+      background: #e8f5e9;
+      color: #2e7d32;
+      font-weight: 500;
+      display: none;
+    }
+
+    .footer {
+      background: #f1f1f1;
+      padding: 30px 20px;
+      text-align: center;
+      color: #666;
+      margin-top: 60px;
+    }
+    .welcome-section {
+      max-width: 900px;
+      margin: 40px auto;
+      padding: 20px;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      color: #333;
+    }
+    .welcome-section h1 {
+      color: #4a00e0;
+      margin-bottom: 20px;
+    }
+    .welcome-section h2 {
+      margin-top: 30px;
+      color: #8e2de2;
+    }
+    .features-list {
+      list-style: none;
+      padding-left: 0;
+      margin-top: 15px;
+    }
+    .features-list li {
+      margin-bottom: 15px;
+      font-size: 18px;
+      line-height: 1.4;
+    }
+    .features-list li span {
+      font-size: 24px;
+      margin-right: 10px;
+    }
+    a.feature-link {
+      display: inline-block;
+      margin-top: 10px;
+      padding: 10px 16px;
+      background: #4a00e0;
+      color: white;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: background-color 0.3s ease;
+    }
+    a.feature-link:hover {
+      background-color: #6b00ff;
+    }
+  </style>
+</head>
+<body>
+  <script>
+    // Redirect to index if not logged in
+    const currentUser = localStorage.getItem("currentUser");
+    if (!currentUser) {
+      window.location.href = "index.html";
+    }
+  </script>
+
+  <!-- Navbar -->
+  <header class="nav">
+    <div class="logo"><a href="welcome.html">Amrit<span style="color:#8e2de2">Setu</span>🌿</a></div>
+    <nav>
+      <a href="ai-insights.html">AI Insights</a>
+      <a href="records.html">Dashboard</a>
+      <a href="premium.html">Pricing</a>
+      <a href="link-abha.html">Link ABHA ID</a>
+    </nav>
+    <div class="auth-buttons"></div>
+  </header>
+
+  <!-- Main Section -->
+  <section class="link-section">
+    <h1>🔗 Link Your ABHA ID</h1>
+    <p>Scan or verify your ABHA ID by referencing the QR code below. This step will connect your AmritSetu profile with the Ayushman Bharat Digital Health ecosystem.</p>
+
+    <div class="qr-box">
+      <img src="abha-qr.png" alt="ABHA QR Code">
+    </div>
+
+    <div class="manual-entry">
+      <p>Prefer manual linking?</p>
+      <input type="text" id="abhaInput" placeholder="Enter your 14-digit ABHA ID" maxlength="14" />
+      <button id="linkBtn">Link</button>
+    </div>
+
+    <div class="success-box" id="successBox">
+      ✅ Your ABHA ID has been successfully linked to your AmritSetu account!
+    </div>
+  </section>
+
+  <footer class="footer">
+    *Note: This is just a model QR which redirects to out youtube channel.
+  </footer>
+
+  <script src="auth-ui.js"></script>
+  <script>
+    document.getElementById("linkBtn").addEventListener("click", () => {
+      const id = document.getElementById("abhaInput").value.trim();
+      if (id.length < 10) {
+        alert("Please enter a valid ABHA ID.");
+        return;
+      }
+      document.getElementById("successBox").style.display = "block";
+    });
+  </script>
+</body>
+</html>
