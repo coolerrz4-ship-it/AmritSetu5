@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Frequently Asked Questions – AmritSetu</title>
+  <link rel="icon" href="favicon.png" type="image/png">
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    body {
+      font-family: "Helvetica Neue", Arial, sans-serif;
+      background: #fafafa;
+      margin: 0;
+      color: #333;
+    }
+
+    .nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px;
+    }
+
+    .nav a {
+      color: #4a00e0;
+      margin: 0 16px;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 18px;
+    }
+
+    .logo a {
+      font-size: 26px;
+      font-weight: 900;
+      text-decoration: none;
+      color: #4a00e0;
+    }
+
+    .hero {
+      background: linear-gradient(to right, #8e2de2, #4a00e0);
+      color: white;
+      text-align: center;
+      padding: 60px 20px;
+    }
+
+    .hero h1 {
+      font-size: 42px;
+      margin-bottom: 10px;
+    }
+
+    .hero p {
+      font-size: 18px;
+      max-width: 700px;
+      margin: auto;
+    }
+
+    .faq-section {
+      max-width: 900px;
+      margin: 60px auto;
+      padding: 0 20px;
+    }
+
+    .faq-item {
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+      margin-bottom: 16px;
+      overflow: hidden;
+    }
+
+    .faq-question {
+      cursor: pointer;
+      background: #f5f5f5;
+      padding: 18px 22px;
+      font-weight: 600;
+      color: #4a00e0;
+      position: relative;
+      transition: background 0.3s ease;
+    }
+
+    .faq-question:hover {
+      background: #ede7f6;
+    }
+
+    .faq-question::after {
+      content: '+';
+      position: absolute;
+      right: 20px;
+      font-size: 20px;
+      color: #4a00e0;
+      transition: transform 0.3s;
+    }
+
+    .faq-item.active .faq-question::after {
+      transform: rotate(45deg);
+    }
+
+    .faq-answer {
+      display: none;
+      padding: 20px 22px;
+      color: #555;
+      line-height: 1.6;
+      border-top: 1px solid #eee;
+    }
+
+    .faq-item.active .faq-answer {
+      display: block;
+    }
+
+    .footer {
+      background: #f1f1f1;
+      padding: 30px 20px;
+      text-align: center;
+      color: #666;
+    }
+
+    @media (max-width: 600px) {
+      .hero h1 { font-size: 30px; }
+      .faq-question { font-size: 16px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <div class="nav">
+    <div class="logo"><a href="index.html">Amrit<span style="color:#8e2de2">Setu</span>🌿</a></div>
+    <div>
+      <a href="our-team.html">Team</a>
+      <a href="compare.html">Comparison</a>
+      <a href="legal.html">Legal</a>
+      <a href="faq.html">FAQ</a>
+    </div>
+  </div>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <h1>Frequently Asked Questions – About AmritSetu</h1>
+    <p>Answers to common questions about our mission, security, and technology</p>
+  </section>
+
+  <!-- FAQ Content -->
+  <section class="faq-section">
+    <div class="faq-item">
+      <div class="faq-question">What is AmritSetu?</div>
+      <div class="faq-answer">
+        AmritSetu is a digital health platform designed to unify India’s fragmented healthcare ecosystem. It connects hospitals, clinics, diagnostic labs, and patients under one secure digital network — enabling health data to move safely and seamlessly between trusted parties.  
+        <br><br>
+        Instead of isolated health apps, AmritSetu acts as a bridge — storing your medical records in a lifelong digital vault, helping you access reports anytime, anywhere, and allowing healthcare providers to make better, faster, and more informed decisions.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-question">How do we plan to partner with the Government?</div>
+      <div class="faq-answer">
+        AmritSetu is built in alignment with India’s <strong>Ayushman Bharat Digital Mission (ABDM)</strong> and integrates with the <strong>ABHA Health ID</strong> framework by the National Health Authority (NHA).  
+        <br><br>
+        By becoming a certified <strong>Health Information Provider (HIP)</strong> and <strong>Health Information User (HIU)</strong>, AmritSetu can exchange verified health data through the government’s secure API network. This ensures all medical information shared through our system follows India’s national digital health standards — encrypted, traceable, and consent-based.  
+        <br><br>
+        For the government, this accelerates digital adoption across smaller private clinics and hospitals, bridging them into the national health grid — exactly what AmritSetu aims to do.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-question">Why would hospitals and clinics join us?</div>
+      <div class="faq-answer">
+        Managing paper reports and manual data entry consumes time and creates errors. With AmritSetu, healthcare providers receive a ready-made digital interface that automatically syncs verified patient data while staying compliant with the ABDM and DPDPA.  
+        <br><br>
+        Clinics benefit from:<br>
+        • Instant access to verified medical history<br>
+        • Reduced redundant tests and improved coordination<br>
+        • Higher patient trust through transparent data handling<br><br>
+        This not only saves time but enhances care quality and efficiency.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-question">Should you trust AmritSetu with your data?</div>
+      <div class="faq-answer">
+        Absolutely. Privacy and consent are at the core of AmritSetu’s philosophy. We use <strong>end-to-end encryption</strong>, <strong>multi-factor authentication</strong>, and <strong>zero-knowledge architecture</strong> — meaning even we cannot view your private data.  
+        <br><br>
+        In the rare event of a cyber threat, our systems isolate affected servers, notify users immediately, and report incidents in compliance with India’s <strong>Data Protection Act</strong>. Every action taken on your data is logged, traceable, and entirely under your control.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-question">Is the AI in AmritSetu safe and ethical?</div>
+      <div class="faq-answer">
+        Yes. Our AI models operate on anonymized, locally processed data — ensuring that no personally identifiable information leaves your secure environment.  
+        <br><br>
+        The AI simply analyzes trends such as thyroid, sugar, or cholesterol patterns to provide insights and preventive health suggestions. It follows strict medical data ethics and uses government-approved algorithms.  
+        <br><br>
+        In short, our AI helps you stay informed — never monitored.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-question">Can AmritSetu solve the retesting problem?</div>
+      <div class="faq-answer">
+        Yes — that’s one of our core missions. Many hospitals repeat tests because they cannot verify external reports. AmritSetu eliminates this problem by providing <strong>digitally verified reports</strong> stamped with <strong>official digital signatures</strong> under the ABDM framework.  
+        <br><br>
+        This makes your medical results universally valid across the AmritSetu network, government hospitals, and private clinics — saving time, money, and avoiding unnecessary retesting.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-question">What is the bigger vision of AmritSetu?</div>
+      <div class="faq-answer">
+        Our long-term goal is to become India’s most trusted digital health bridge — connecting people, hospitals, and data into one transparent system.  
+        <br><br>
+        AmritSetu aims to redefine how healthcare data is managed and shared: secure, consent-driven, and accessible to every Indian citizen. We envision a future where digital health is not just efficient, but equitable — bringing reliable care closer to every household in the country.
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    © 2025 AmritSetu. Built with ❤️ in India.
+  </footer>
+
+  <script>
+    const faqItems = document.querySelectorAll(".faq-item");
+    faqItems.forEach(item => {
+      item.addEventListener("click", () => {
+        // Close all others
+        faqItems.forEach(i => i !== item && i.classList.remove("active"));
+        item.classList.toggle("active");
+      });
+    });
+  </script>
+</body>
+</html>
