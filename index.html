@@ -402,30 +402,23 @@
   });
 </script>
 <script>
-  // 🌿 Show intro only once per session
+  // 🌿 Always show the intro animation (no sessionStorage)
   const introOverlay = document.getElementById("introOverlay");
-  const hasPlayed = sessionStorage.getItem("introPlayed") === "true";
 
-  if (hasPlayed) {
-    // Skip instantly if already viewed
-    introOverlay.style.display = "none";
-  } else {
-    // Mark as played for this session
-    sessionStorage.setItem("introPlayed", "true");
-
-    // Fade out after animation
+  // Fade out after animation ends
+  setTimeout(() => {
+    introOverlay.classList.add("fade-out");
     setTimeout(() => {
-      introOverlay.classList.add("fade-out");
-      setTimeout(() => {
-        introOverlay.style.display = "none";
-      }, 1000);
-    }, 4000);
-  }
+      introOverlay.style.display = "none";
+    }, 1000);
+  }, 4000);
 </script>
+
 
 
 </body>
 </html>
+
 
 
 
