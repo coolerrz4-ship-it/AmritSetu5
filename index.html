@@ -265,6 +265,76 @@
 @keyframes introFadeUp {
   to { opacity: 1; transform: translateY(0); }
 }
+/* === 🌿 Impact Section === */
+.impact-section {
+  background: linear-gradient(135deg, #6a11cb, #2575fc);
+  color: #fff;
+  text-align: center;
+  padding: 80px 20px;
+  position: relative;
+  overflow: hidden;
+}
+
+.impact-title {
+  font-size: 2.5rem;
+  margin-bottom: 10px;
+  font-weight: 700;
+}
+
+.impact-subtitle {
+  font-size: 1.1rem;
+  opacity: 0.9;
+  margin-bottom: 50px;
+}
+
+.impact-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 40px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.stat {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  padding: 30px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+  transition: transform 0.3s ease, background 0.3s ease;
+}
+
+.stat:hover {
+  transform: translateY(-8px);
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.stat-icon {
+  font-size: 2.2rem;
+  display: block;
+  margin-bottom: 10px;
+}
+
+.counter {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 5px;
+  color: #fff;
+}
+
+.stat p {
+  font-size: 1rem;
+  opacity: 0.85;
+}
+.stat {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+.stat.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
 
   </style>
 </head>
@@ -340,6 +410,34 @@
       With 20–25% CAGR in digital health, AmritSetu is tapping into the Indian market, starting with urban clinics and chronic care. Our 2026 roadmap includes AI doctor connect and insurance integrations.
     </p>
   </section>
+<!-- 🌿 Impact Section -->
+<section class="impact-section" id="impact">
+  <h2 class="impact-title">Our Growing Impact</h2>
+  <p class="impact-subtitle">Building a connected healthcare ecosystem across India</p>
+  
+  <div class="impact-stats">
+    <div class="stat">
+      <span class="stat-icon">🏥</span>
+      <h3 class="counter" data-target="120">0</h3>
+      <p>Hospitals Connected</p>
+    </div>
+    <div class="stat">
+      <span class="stat-icon">👥</span>
+      <h3 class="counter" data-target="10000">0</h3>
+      <p>Patients Onboarded</p>
+    </div>
+    <div class="stat">
+      <span class="stat-icon">🌐</span>
+      <h3 class="counter" data-target="25">0</h3>
+      <p>States Integrated</p>
+    </div>
+    <div class="stat">
+      <span class="stat-icon">🔒</span>
+      <h3 class="counter" data-target="98">0</h3>
+      <p>Data Security Compliance (%)</p>
+    </div>
+  </div>
+</section>
 
   <!-- Call to Action -->
   <section class="hero" style="background: #4a00e0;">
@@ -413,11 +511,50 @@
     }, 1000);
   }, 4000);
 </script>
+<script>
+  // 🌿 Animate numbers when section is visible
+  const counters = document.querySelectorAll('.counter');
+  let animated = false;
+
+  function animateCounters() {
+    if (animated) return;
+    const section = document.getElementById('impact');
+    const sectionTop = section.getBoundingClientRect().top;
+    const windowHeight = window.innerHeight;
+
+    if (sectionTop < windowHeight - 100) {
+      animated = true;
+      counters.forEach(counter => {
+        const target = +counter.getAttribute('data-target');
+        const duration = 2000;
+        const start = 0;
+        const stepTime = Math.max(Math.floor(duration / target), 20);
+        let count = start;
+        const timer = setInterval(() => {
+          count += Math.ceil(target / (duration / stepTime));
+          if (count >= target) {
+            counter.textContent = target.toLocaleString();
+            clearInterval(timer);
+          } else {
+            counter.textContent = count.toLocaleString();
+          }
+        }, stepTime);
+      });
+    }
+  }
+if (sectionTop < windowHeight - 100) {
+  animated = true;
+  document.querySelectorAll('.stat').forEach(stat => stat.classList.add('visible'));
+  // ... counter animation code
+}
+  window.addEventListener('scroll', animateCounters);
+</script>
 
 
 
 </body>
 </html>
+
 
 
 
