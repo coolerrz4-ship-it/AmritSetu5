@@ -68,11 +68,19 @@
   <div class="slogan">Connecting India’s Healthcare</div>
 
   <script>
-    // After 4 seconds fade out and redirect
-    setTimeout(()=>{
-      document.body.classList.add('fade-out');
-      setTimeout(()=>window.location.href='index.html',1000);
-    },4000);
+    // ✅ Skip intro if it has already been played
+    if (sessionStorage.getItem('introPlayed') === 'true') {
+      window.location.replace('index.html');
+    } else {
+      // Mark as played for this session
+      sessionStorage.setItem('introPlayed', 'true');
+
+      // After 4 seconds fade out and redirect
+      setTimeout(() => {
+        document.body.classList.add('fade-out');
+        setTimeout(() => window.location.href = 'index.html', 1000);
+      }, 4000);
+    }
   </script>
 </body>
 </html>
