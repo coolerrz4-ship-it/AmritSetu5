@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Your Profile – AmritSetu</title>
+  <link rel="icon" href="favicon.png" type="image/png">
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    body {
+      background: var(--bg-color, #fafafa);
+      color: var(--text-color, #333);
+      font-family: "Segoe UI", sans-serif;
+      margin: 0;
+      transition: background 0.3s ease, color 0.3s ease;
+    }
+
+    .profile-container {
+      max-width: 700px;
+      margin: 60px auto;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      padding: 40px 30px;
+    }
+
+    h1 {
+      color: #4a00e0;
+      text-align: center;
+      margin-bottom: 25px;
+    }
+
+    .section-title {
+      margin-top: 30px;
+      color: #4a00e0;
+      font-size: 18px;
+      font-weight: 600;
+      border-bottom: 2px solid #4a00e0;
+      display: inline-block;
+      padding-bottom: 3px;
+    }
+
+    .info {
+      background: #f5f5f5;
+      padding: 15px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+    }
+
+    .info p {
+      margin: 8px 0;
+      font-size: 16px;
+    }
+
+    .toggle-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: 15px 0;
+      padding: 12px 15px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+    }
+
+    .toggle-row label {
+      font-weight: 600;
+    }
+
+    .toggle-switch {
+      position: relative;
+      width: 46px;
+      height: 24px;
+      background: #ccc;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .toggle-switch::after {
+      content: '';
+      position: absolute;
+      top: 3px;
+      left: 3px;
+      width: 18px;
+      height: 18px;
+      background: white;
+      border-radius: 50%;
+      transition: transform 0.3s ease;
+    }
+
+    .toggle-switch.active {
+      background: #4a00e0;
+    }
+
+    .toggle-switch.active::after {
+      transform: translateX(22px);
+    }
+
+    .actions {
+      text-align: center;
+      margin-top: 30px;
+    }
+
+    .actions button {
+      margin: 10px;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 16px;
+      transition: background-color 0.3s ease;
+    }
+
+    .export-btn {
+      background: #4a00e0;
+      color: white;
+    }
+
+    .logout-btn {
+      background: #f44336;
+      color: white;
+    }
+
+    .actions button:hover {
+      filter: brightness(110%);
+    }
+
+    .footer {
+      background: #f1f1f1;
+      text-align: center;
+      padding: 25px;
+      margin-top: 60px;
+      color: #666;
+    }
+.logo a {
+  font-size: 26px; /* Larger than the 18px nav links */
+  font-weight: 900;
+  text-decoration: none;
+  color: #4a00e0;
+}
+
+  </style>
+</head>
+<body>
+  <script>
+    // Redirect to login if not logged in
+    const user = JSON.parse(localStorage.getItem("currentUser"));
+    if (!user) {
+      window.location.href = "index.html";
+    }
+  </script>
+
+  <!-- Navbar -->
+  <header class="nav">
+    <div class="logo"><a href="welcome.html">Amrit<span style="color:#8e2de2">Setu</span>🌿</a></div>
+    <nav>
+      <a href="ai-insights.html">AI Insights</a>
+      <a href="records.html">Dashboard</a>
+      <a href="premium.html">Pricing</a>
+    </nav>
+    <div class="auth-buttons"></div>
+  </header>
+
+  <!-- Profile -->
+  <section class="profile-container">
+    <h1>Your Profile</h1>
+
+    <div class="info">
+      <p><strong>Name:</strong> <span id="userName"></span></p>
+      <p><strong>Email:</strong> <span id="userEmail"></span></p>
+      <p><strong>ABHA Status:</strong> <span id="abhaStatus">Not Linked ❌</span></p>
+    </div>
+
+    <h2 class="section-title">Preferences</h2>
+    <div class="toggle-row">
+      <label for="notifToggle">🔔 Notifications</label>
+      <div id="notifToggle" class="toggle-switch"></div>
+    </div>
+
+    <div class="toggle-row">
+      <label for="reminderToggle">📅 Appointment Reminders</label>
+      <div id="reminderToggle" class="toggle-switch"></div>
+    </div>
+
+    <h2 class="section-title">Privacy</h2>
+    <div class="toggle-row">
+      <label for="dataConsentToggle">🧾 Data Sharing Consent</label>
+      <div id="dataConsentToggle" class="toggle-switch"></div>
+    </div>
+
+    <div class="actions">
+      <button class="export-btn" id="exportBtn">📄 Export My Health Data</button>
+      <button class="logout-btn" id="logoutBtn">Logout</button>
+    </div>
+  </section>
+
+  <footer class="footer">
+    © 2025 AmritSetu. Built with ❤️ in India.
+  </footer>
+
+  <script src="auth-ui.js"></script>
+  <script>
+    // Display user info
+    document.getElementById("userName").textContent = user.name || "User";
+    document.getElementById("userEmail").textContent = user.email || "Unknown";
+
+    // Load ABHA status if linked
+    const abhaLinked = localStorage.getItem("abhaLinked") === "true";
+    document.getElementById("abhaStatus").textContent = abhaLinked ? "Linked ✅" : "Not Linked ❌";
+
+    // === Notifications Toggle ===
+    const notifToggle = document.getElementById("notifToggle");
+    const notifEnabled = localStorage.getItem("notifications") === "true";
+    if (notifEnabled) notifToggle.classList.add("active");
+    notifToggle.addEventListener("click", () => {
+      notifToggle.classList.toggle("active");
+      const active = notifToggle.classList.contains("active");
+      localStorage.setItem("notifications", active ? "true" : "false");
+      alert(active ? "🔔 Notifications enabled" : "🔕 Notifications disabled");
+    });
+
+    // === Appointment Reminders Toggle ===
+    const reminderToggle = document.getElementById("reminderToggle");
+    const remindersOn = localStorage.getItem("reminders") === "true";
+    if (remindersOn) reminderToggle.classList.add("active");
+    reminderToggle.addEventListener("click", () => {
+      reminderToggle.classList.toggle("active");
+      const active = reminderToggle.classList.contains("active");
+      localStorage.setItem("reminders", active ? "true" : "false");
+      alert(active ? "📅 Appointment reminders turned on" : "📅 Reminders turned off");
+    });
+
+    // === Data Sharing Consent Toggle ===
+    const dataConsentToggle = document.getElementById("dataConsentToggle");
+    const consentGiven = localStorage.getItem("dataConsent") === "true";
+    if (consentGiven) dataConsentToggle.classList.add("active");
+    dataConsentToggle.addEventListener("click", () => {
+      dataConsentToggle.classList.toggle("active");
+      const given = dataConsentToggle.classList.contains("active");
+      localStorage.setItem("dataConsent", given ? "true" : "false");
+      alert(given
+        ? "✅ You’ve granted consent for anonymized data sharing."
+        : "❌ You’ve withdrawn your data sharing consent.");
+    });
+
+    // === Export Health Data (Simulation) ===
+    document.getElementById("exportBtn").addEventListener("click", () => {
+      alert("📄 Your health data has been exported successfully! (Demo simulation)");
+    });
+
+    // === Logout ===
+    document.getElementById("logoutBtn").addEventListener("click", () => {
+      localStorage.removeItem("currentUser");
+      window.location.href = "index.html";
+    });
+  </script>
+</body>
+</html>
