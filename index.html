@@ -325,15 +325,6 @@
   font-size: 1rem;
   opacity: 0.85;
 }
-.stat {
-  opacity: 0;
-  transform: translateY(40px);
-  transition: opacity 0.8s ease, transform 0.8s ease;
-}
-.stat.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
 
 
   </style>
@@ -542,18 +533,14 @@
       });
     }
   }
-if (sectionTop < windowHeight - 100) {
-  animated = true;
-  document.querySelectorAll('.stat').forEach(stat => stat.classList.add('visible'));
-  // ... counter animation code
-}
-  window.addEventListener('scroll', animateCounters);
+
 </script>
 
 
 
 </body>
 </html>
+
 
 
 
