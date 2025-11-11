@@ -2,6 +2,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <!-- 🌿 AmritSetu Intro Overlay -->
+<div id="introOverlay">
+  <div class="ring"></div>
+  <div class="ring"></div>
+  <div class="ring"></div>
+  <div class="intro-logo">Amrit<span>Setu🌿</span></div>
+  <div class="intro-slogan">Connecting India’s Healthcare</div>
+</div>
+
 <link rel="icon" href="favicon.png" type="image/png">
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -194,6 +203,67 @@
   from {transform: scale(0.9); opacity: 0;}
   to {transform: scale(1); opacity: 1;}
 }
+/* === 🌿 Intro Overlay Styles === */
+#introOverlay {
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(circle at top right, #8e2de2, #4a00e0 60%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  z-index: 99999;
+  overflow: hidden;
+  color: #fff;
+  font-family: "Segoe UI", sans-serif;
+  transition: opacity 1s ease;
+}
+
+#introOverlay.fade-out {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.intro-logo {
+  font-size: 3rem;
+  font-weight: 700;
+  opacity: 0;
+  transform: translateY(30px);
+  animation: introFadeUp 1.2s ease forwards 0.5s;
+}
+
+.intro-logo span {
+  color: #fff;
+}
+
+.intro-slogan {
+  font-size: 1.25rem;
+  margin-top: 20px;
+  opacity: 0;
+  transform: translateY(30px);
+  animation: introFadeUp 1.2s ease forwards 1.6s;
+}
+
+.ring {
+  position: absolute;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  animation: introPulse 3s ease-in-out infinite;
+}
+
+.ring:nth-child(1) { width: 200px; height: 200px; }
+.ring:nth-child(2) { width: 300px; height: 300px; animation-delay: 1s; }
+.ring:nth-child(3) { width: 400px; height: 400px; animation-delay: 2s; }
+
+@keyframes introPulse {
+  0% { transform: scale(0.9); opacity: 0.6; }
+  50% { transform: scale(1.1); opacity: 0.3; }
+  100% { transform: scale(0.9); opacity: 0.6; }
+}
+
+@keyframes introFadeUp {
+  to { opacity: 1; transform: translateY(0); }
+}
 
   </style>
 </head>
@@ -330,9 +400,31 @@
     }
   });
 </script>
+<script>
+  // 🌿 Show intro only once per session
+  const introOverlay = document.getElementById("introOverlay");
+  const hasPlayed = sessionStorage.getItem("introPlayed") === "true";
+
+  if (hasPlayed) {
+    // Skip instantly if already viewed
+    introOverlay.style.display = "none";
+  } else {
+    // Mark as played for this session
+    sessionStorage.setItem("introPlayed", "true");
+
+    // Fade out after animation
+    setTimeout(() => {
+      introOverlay.classList.add("fade-out");
+      setTimeout(() => {
+        introOverlay.style.display = "none";
+      }, 1000);
+    }, 4000);
+  }
+</script>
 
 </body>
 </html>
+
 
 
 
