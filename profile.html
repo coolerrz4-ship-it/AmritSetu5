@@ -8,71 +8,99 @@
   <link rel="stylesheet" href="styles.css" />
   <style>
     body {
-      background: #fafafa;
-      color: #333;
+      background: var(--bg-color, #fafafa);
+      color: var(--text-color, #333);
       font-family: "Segoe UI", sans-serif;
       margin: 0;
       transition: background 0.3s ease, color 0.3s ease;
     }
 
-    /* Layout */
-    .dashboard {
+    .main-container {
       display: flex;
-      min-height: 100vh;
       margin-top: 60px;
+      min-height: calc(100vh - 120px);
     }
 
+    /* Sidebar */
     .sidebar {
-      width: 240px;
-      background: linear-gradient(180deg, #4a00e0, #8e2de2);
+      width: 220px;
+      background: linear-gradient(180deg, #6a11cb, #2575fc);
       color: white;
       display: flex;
       flex-direction: column;
-      align-items: flex-start;
-      padding: 30px 20px;
+      padding: 25px 15px;
     }
 
     .sidebar h2 {
-      font-size: 20px;
-      margin-bottom: 30px;
+      text-align: center;
+      margin-bottom: 25px;
+      font-size: 1.3rem;
     }
 
     .tab {
-      width: 100%;
-      padding: 14px 18px;
-      border-radius: 8px;
-      margin-bottom: 10px;
+      padding: 12px 15px;
+      border-radius: 10px;
+      margin-bottom: 8px;
       cursor: pointer;
-      font-weight: 600;
       transition: background 0.3s;
     }
 
-    .tab:hover {
+    .tab:hover,
+    .tab.active {
       background: rgba(255, 255, 255, 0.2);
     }
 
-    .tab.active {
-      background: white;
-      color: #4a00e0;
+    /* Main Content */
+    .profile-content {
+      flex: 1;
+      padding: 40px 30px;
     }
 
-    .content {
-      flex: 1;
-      padding: 40px 50px;
-      overflow-y: auto;
+    .profile-section,
+    .bmi-section {
+      display: none;
+    }
+    .profile-section.active,
+    .bmi-section.active {
+      display: block;
+    }
+
+    /* Original Profile Styles */
+    .profile-container {
+      max-width: 700px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      padding: 40px 30px;
     }
 
     h1 {
       color: #4a00e0;
+      text-align: center;
       margin-bottom: 25px;
     }
 
-    /* Profile Section */
+    .section-title {
+      margin-top: 30px;
+      color: #4a00e0;
+      font-size: 18px;
+      font-weight: 600;
+      border-bottom: 2px solid #4a00e0;
+      display: inline-block;
+      padding-bottom: 3px;
+    }
+
     .info {
       background: #f5f5f5;
-      padding: 20px;
-      border-radius: 12px;
-      margin-bottom: 25px;
+      padding: 15px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+    }
+
+    .info p {
+      margin: 8px 0;
+      font-size: 16px;
     }
 
     .toggle-row {
@@ -140,74 +168,10 @@
       color: white;
     }
 
-    .actions button:hover {
-      filter: brightness(110%);
-    }
-
-    /* BMI Section */
-    .bmi-card {
-      background: #fff;
-      padding: 30px;
-      border-radius: 12px;
-      box-shadow: 0 3px 10px rgba(0,0,0,0.1);
-      max-width: 400px;
-    }
-
-    .bmi-result-box {
-      background: #f9f9f9;
-      padding: 20px;
-      border-radius: 10px;
-      margin-top: 20px;
-      text-align: center;
-      font-weight: 600;
-    }
-
-    /* Daily Goals */
-    .goals-grid {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 25px;
-      justify-content: center;
-      margin-top: 30px;
-    }
-
-    .goal-ring {
-      background: #fff;
-      border-radius: 20px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-      padding: 25px;
-      text-align: center;
-      width: 260px;
-    }
-
-    canvas {
-      margin-top: 10px;
-    }
-
-    .sync-section {
-      text-align: center;
-      margin-top: 40px;
-    }
-
-    .sync-section button {
-      background: #4a00e0;
-      color: white;
-      padding: 10px 25px;
-      border: none;
-      border-radius: 10px;
-      cursor: pointer;
-      font-weight: 600;
-    }
-
-    .sync-section button:hover {
-      background: #8e2de2;
-    }
-
     .footer {
       background: #f1f1f1;
       text-align: center;
       padding: 25px;
-      margin-top: 60px;
       color: #666;
     }
 
@@ -217,6 +181,101 @@
       text-decoration: none;
       color: #4a00e0;
     }
+
+    /* === BMI Section === */
+    .bmi-card {
+      background: #fff;
+      border-radius: 15px;
+      padding: 25px 20px;
+      max-width: 400px;
+      margin: 0 auto;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+
+    .bmi-card input {
+      width: 100%;
+      margin-top: 10px;
+      margin-bottom: 15px;
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 1rem;
+    }
+
+    .bmi-card button {
+      width: 100%;
+      background: #2575fc;
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      padding: 12px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .bmi-card button:hover {
+      background: #6a11cb;
+    }
+
+    .bmi-result {
+      margin-top: 15px;
+      font-weight: 600;
+      font-size: 1.1rem;
+      text-align: center;
+    }
+
+    @media (max-width: 800px) {
+      .main-container {
+        flex-direction: column;
+      }
+      .sidebar {
+        width: 100%;
+        flex-direction: row;
+        justify-content: space-around;
+      }
+    }
+    .bmi-result-box {
+  background: #fff;
+  border-radius: 15px;
+  padding: 25px 20px;
+  max-width: 400px;
+  margin: 25px auto;
+  text-align: center;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  border-left: 6px solid #4a00e0;
+  transition: border-color 0.3s ease;
+}
+
+.bmi-result-box p {
+  font-size: 1.1rem;
+  margin: 10px 0;
+  font-weight: 500;
+}
+
+.bmi-result-box.normal { border-color: #4caf50; }
+.bmi-result-box.underweight { border-color: #2196f3; }
+.bmi-result-box.overweight { border-color: #ff9800; }
+.bmi-result-box.obese { border-color: #f44336; }
+
+.recalc-btn {
+  margin-top: 15px;
+  background: #2575fc;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 15px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.recalc-btn:hover {
+  background: #6a11cb;
+}
+
   </style>
 </head>
 <body>
@@ -225,6 +284,7 @@
     if (!user) window.location.href = "index.html";
   </script>
 
+  <!-- Navbar -->
   <header class="nav">
     <div class="logo"><a href="welcome.html">Amrit<span style="color:#8e2de2">Setu</span>🌿</a></div>
     <nav>
@@ -236,203 +296,223 @@
     <div class="auth-buttons"></div>
   </header>
 
-  <div class="dashboard">
-    <!-- Sidebar -->
-    <aside class="sidebar">
+  <!-- Sidebar + Main -->
+  <div class="main-container">
+    <div class="sidebar">
       <h2>Account</h2>
       <div class="tab active" id="tabProfile">👤 Profile</div>
       <div class="tab" id="tabBMI">⚖️ BMI Tracker</div>
-      <div class="tab" id="tabGoals">🏃‍♂️ Daily Goals</div>
-    </aside>
+    </div>
 
-    <!-- Main Content -->
-    <main class="content">
-      <!-- Profile Section -->
-      <section id="profileSection">
-        <h1>Your Profile</h1>
-        <div class="info">
-          <p><strong>Name:</strong> <span id="userName"></span></p>
-          <p><strong>Email:</strong> <span id="userEmail"></span></p>
-          <p><strong>ABHA Status:</strong> <span id="abhaStatus">Not Linked ❌</span></p>
-        </div>
+    <div class="profile-content">
+      <!-- Profile Tab -->
+      <section class="profile-section active" id="profileSection">
+        <div class="profile-container">
+          <h1>Your Profile</h1>
 
-        <h2 class="section-title">Preferences</h2>
-        <div class="toggle-row"><label>🔔 Notifications</label><div id="notifToggle" class="toggle-switch"></div></div>
-        <div class="toggle-row"><label>📅 Appointment Reminders</label><div id="reminderToggle" class="toggle-switch"></div></div>
+          <div class="info">
+            <p><strong>Name:</strong> <span id="userName"></span></p>
+            <p><strong>Email:</strong> <span id="userEmail"></span></p>
+            <p><strong>ABHA Status:</strong> <span id="abhaStatus">Not Linked ❌</span></p>
+          </div>
 
-        <h2 class="section-title">Privacy</h2>
-        <div class="toggle-row"><label>🧾 Data Sharing Consent</label><div id="dataConsentToggle" class="toggle-switch"></div></div>
+          <h2 class="section-title">Preferences</h2>
 
-        <div class="actions">
-          <button class="export-btn" id="exportBtn">📄 Export My Health Data</button>
-          <button class="logout-btn" id="logoutBtn">Logout</button>
+          <div class="toggle-row">
+            <label>🔔 Notifications</label>
+            <div id="notifToggle" class="toggle-switch"></div>
+          </div>
+
+          <div class="toggle-row">
+            <label>📅 Appointment Reminders</label>
+            <div id="reminderToggle" class="toggle-switch"></div>
+          </div>
+
+          <h2 class="section-title">Privacy</h2>
+          <div class="toggle-row">
+            <label>🧾 Data Sharing Consent</label>
+            <div id="dataConsentToggle" class="toggle-switch"></div>
+          </div>
+
+          <div class="actions">
+            <button class="export-btn" id="exportBtn">📄 Export My Health Data</button>
+            <button class="logout-btn" id="logoutBtn">Logout</button>
+          </div>
         </div>
       </section>
 
-      <!-- BMI Tracker -->
-      <section id="bmiSection" style="display:none;">
-        <h1>BMI Tracker</h1>
-        <div class="bmi-card" id="bmiInputCard">
-          <label>Height (cm): <input type="number" id="height"></label><br><br>
-          <label>Weight (kg): <input type="number" id="weight"></label><br><br>
-          <button onclick="calculateBMI()">Calculate BMI</button>
-        </div>
-        <div class="bmi-result-box" id="bmiResultBox" style="display:none;">
-          <p id="bmiValueDisplay"></p>
-          <p id="bmiCategoryDisplay"></p>
-          <p id="bmiTimeDisplay" style="font-size:0.9rem;color:#555;"></p>
-          <button onclick="resetBMI()">Recalculate</button>
-        </div>
-      </section>
+      <!-- BMI Tab -->
+     <!-- BMI Tab -->
+<section class="bmi-section" id="bmiSection">
+  <h1>BMI Tracker</h1>
 
-      <!-- Daily Goals -->
-      <section id="goalsSection" style="display:none;">
-        <h1>Daily Goals</h1>
-        <div class="goals-grid">
-          <div class="goal-ring">
-            <h3>💧 Water Intake</h3>
-            <canvas id="ringWater" width="180" height="180"></canvas>
-            <p id="waterLabel">0 / 8 glasses</p>
-          </div>
-          <div class="goal-ring">
-            <h3>💤 Sleep Hours</h3>
-            <canvas id="ringSleep" width="180" height="180"></canvas>
-            <p id="sleepLabel">0 / 8 hrs</p>
-          </div>
-          <div class="goal-ring">
-            <h3>🚶 Steps</h3>
-            <canvas id="ringSteps" width="180" height="180"></canvas>
-            <p id="stepsLabel">0 / 10000</p>
-          </div>
-        </div>
-        <div class="sync-section">
-          <h3>🔗 Connect Fitness Tracker</h3>
-          <p>Simulate syncing with your wearable app.</p>
-          <button onclick="syncFitnessTracker()">Sync Now</button>
-        </div>
-      </section>
-    </main>
+  <div class="bmi-card" id="bmiInputCard">
+    <label>Height (cm)</label>
+    <input type="number" id="height" placeholder="Enter your height" />
+    <label>Weight (kg)</label>
+    <input type="number" id="weight" placeholder="Enter your weight" />
+    <button onclick="calculateBMI()">Calculate BMI</button>
+  </div>
+
+  <div class="bmi-result-box" id="bmiResultBox" style="display:none;">
+    <h3>Your BMI Summary</h3>
+    <p id="bmiValueDisplay"></p>
+    <p id="bmiCategoryDisplay"></p>
+    <p id="bmiTimeDisplay" style="font-size: 0.95rem; color: #555; margin-top: 8px;"></p>
+
+    <button class="recalc-btn" onclick="resetBMI()">🔄 Recalculate BMI</button>
+  </div>
+</section>
+
+    </div>
   </div>
 
   <footer class="footer">© 2025 AmritSetu. Built with ❤️ in India.</footer>
 
   <script src="auth-ui.js"></script>
   <script>
-    // Load user
-    document.getElementById("userName").textContent = user.name || "User";
-    document.getElementById("userEmail").textContent = user.email || "Unknown";
-    document.getElementById("abhaStatus").textContent =
-      localStorage.getItem("abhaLinked") === "true" ? "Linked ✅" : "Not Linked ❌";
-
-    // Sidebar Tabs
+    // Tab logic
     const tabProfile = document.getElementById("tabProfile");
     const tabBMI = document.getElementById("tabBMI");
-    const tabGoals = document.getElementById("tabGoals");
     const profileSection = document.getElementById("profileSection");
     const bmiSection = document.getElementById("bmiSection");
-    const goalsSection = document.getElementById("goalsSection");
 
-    [tabProfile, tabBMI, tabGoals].forEach(tab => tab.addEventListener("click", () => {
-      [tabProfile, tabBMI, tabGoals].forEach(t => t.classList.remove("active"));
-      tab.classList.add("active");
-      profileSection.style.display = tab === tabProfile ? "block" : "none";
-      bmiSection.style.display = tab === tabBMI ? "block" : "none";
-      goalsSection.style.display = tab === tabGoals ? "block" : "none";
-    }));
-
-    // BMI Logic
-    function calculateBMI() {
-      const h = parseFloat(document.getElementById("height").value);
-      const w = parseFloat(document.getElementById("weight").value);
-      if (!h || !w) return alert("⚠️ Enter valid height and weight!");
-      const bmi = (w / ((h / 100) ** 2)).toFixed(1);
-      const category = bmi < 18.5 ? "Underweight" : bmi < 25 ? "Normal" : bmi < 30 ? "Overweight" : "Obese";
-      const timestamp = new Date().toLocaleString("en-IN", { day:"2-digit", month:"short", year:"numeric", hour:"2-digit", minute:"2-digit" });
-      document.getElementById("bmiValueDisplay").textContent = `Your BMI is ${bmi}`;
-      document.getElementById("bmiCategoryDisplay").textContent = `Category: ${category}`;
-      document.getElementById("bmiTimeDisplay").textContent = `Last calculated: ${timestamp}`;
-      localStorage.setItem("bmiData", JSON.stringify({ bmi, category, timestamp, h, w }));
-      document.getElementById("bmiInputCard").style.display = "none";
-      document.getElementById("bmiResultBox").style.display = "block";
-    }
-
-    function resetBMI() {
-      document.getElementById("bmiInputCard").style.display = "block";
-      document.getElementById("bmiResultBox").style.display = "none";
-    }
-
-    window.addEventListener("load", () => {
-      const saved = JSON.parse(localStorage.getItem("bmiData"));
-      if (saved) {
-        document.getElementById("bmiInputCard").style.display = "none";
-        document.getElementById("bmiResultBox").style.display = "block";
-        document.getElementById("bmiValueDisplay").textContent = `Your BMI is ${saved.bmi}`;
-        document.getElementById("bmiCategoryDisplay").textContent = `Category: ${saved.category}`;
-        document.getElementById("bmiTimeDisplay").textContent = `Last calculated: ${saved.timestamp}`;
-      }
+    tabProfile.addEventListener("click", () => {
+      tabProfile.classList.add("active");
+      tabBMI.classList.remove("active");
+      profileSection.classList.add("active");
+      bmiSection.classList.remove("active");
     });
 
-    // Daily Goals Logic with Gradient Rings
-    const goals = {
-      water: { current: 0, goal: 8, color: ['#36d1dc', '#5b86e5'] },
-      sleep: { current: 0, goal: 8, color: ['#8E2DE2', '#4A00E0'] },
-      steps: { current: 0, goal: 10000, color: ['#F7971E', '#FFD200'] }
+    tabBMI.addEventListener("click", () => {
+      tabBMI.classList.add("active");
+      tabProfile.classList.remove("active");
+      bmiSection.classList.add("active");
+      profileSection.classList.remove("active");
+    });
+
+    // Display user info
+    document.getElementById("userName").textContent = user.name || "User";
+    document.getElementById("userEmail").textContent = user.email || "Unknown";
+    const abhaLinked = localStorage.getItem("abhaLinked") === "true";
+    document.getElementById("abhaStatus").textContent = abhaLinked ? "Linked ✅" : "Not Linked ❌";
+
+    // Toggle settings
+    const setupToggle = (id, key, onMsg, offMsg) => {
+      const el = document.getElementById(id);
+      const isActive = localStorage.getItem(key) === "true";
+      if (isActive) el.classList.add("active");
+      el.addEventListener("click", () => {
+        el.classList.toggle("active");
+        const active = el.classList.contains("active");
+        localStorage.setItem(key, active);
+        alert(active ? onMsg : offMsg);
+      });
     };
 
-    function drawRing(id, value, max, gradientColors) {
-      const canvas = document.getElementById(id);
-      const ctx = canvas.getContext("2d");
-      const center = canvas.width / 2, radius = 70;
-      const endAngle = (value / max) * 2 * Math.PI;
-      const gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
-      gradient.addColorStop(0, gradientColors[0]);
-      gradient.addColorStop(1, gradientColors[1]);
+    setupToggle("notifToggle", "notifications", "🔔 Notifications enabled", "🔕 Notifications disabled");
+    setupToggle("reminderToggle", "reminders", "📅 Appointment reminders on", "📅 Reminders off");
+    setupToggle("dataConsentToggle", "dataConsent", "✅ Data sharing consent granted", "❌ Consent withdrawn");
 
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      ctx.lineWidth = 12;
-      ctx.strokeStyle = "#eee";
-      ctx.beginPath();
-      ctx.arc(center, center, radius, 0, 2 * Math.PI);
-      ctx.stroke();
+    document.getElementById("exportBtn").addEventListener("click", () =>
+      alert("📄 Your health data has been exported successfully! (Demo simulation)")
+    );
 
-      ctx.strokeStyle = gradient;
-      ctx.beginPath();
-      ctx.arc(center, center, radius, -Math.PI / 2, endAngle - Math.PI / 2);
-      ctx.stroke();
-    }
-
-    function renderGoals() {
-      drawRing("ringWater", goals.water.current, goals.water.goal, goals.water.color);
-      drawRing("ringSleep", goals.sleep.current, goals.sleep.goal, goals.sleep.color);
-      drawRing("ringSteps", goals.steps.current, goals.steps.goal, goals.steps.color);
-      document.getElementById("waterLabel").textContent = `${goals.water.current} / 8 glasses`;
-      document.getElementById("sleepLabel").textContent = `${goals.sleep.current} / 8 hrs`;
-      document.getElementById("stepsLabel").textContent = `${goals.steps.current} / 10000`;
-    }
-
-    function syncFitnessTracker() {
-      alert("📲 Syncing with your fitness tracker...");
-      goals.water.current = Math.min(8, Math.floor(Math.random() * 9));
-      goals.sleep.current = Math.min(8, Math.floor(Math.random() * 9));
-      goals.steps.current = Math.min(10000, Math.floor(Math.random() * 12000));
-      localStorage.setItem("goals", JSON.stringify(goals));
-      setTimeout(() => {
-        alert("✅ Synced successfully!");
-        renderGoals();
-      }, 800);
-    }
-
-    window.addEventListener("load", () => {
-      const saved = JSON.parse(localStorage.getItem("goals"));
-      if (saved) Object.assign(goals, saved);
-      renderGoals();
-    });
-
-    // Logout
     document.getElementById("logoutBtn").addEventListener("click", () => {
       localStorage.removeItem("currentUser");
       window.location.href = "index.html";
     });
+
+// === BMI Tracker with Save, Recalculate & Timestamp ===
+function calculateBMI() {
+  const h = parseFloat(document.getElementById("height").value);
+  const w = parseFloat(document.getElementById("weight").value);
+  const inputCard = document.getElementById("bmiInputCard");
+  const resultBox = document.getElementById("bmiResultBox");
+  const bmiValueDisplay = document.getElementById("bmiValueDisplay");
+  const bmiCategoryDisplay = document.getElementById("bmiCategoryDisplay");
+  const bmiTimeDisplay = document.getElementById("bmiTimeDisplay");
+
+  if (!h || !w) {
+    alert("⚠️ Please enter valid height and weight!");
+    return;
+  }
+
+  const bmi = (w / ((h / 100) ** 2)).toFixed(1);
+  let category = "";
+  let boxClass = "";
+
+  if (bmi < 18.5) {
+    category = "Underweight";
+    boxClass = "underweight";
+  } else if (bmi < 25) {
+    category = "Normal weight";
+    boxClass = "normal";
+  } else if (bmi < 30) {
+    category = "Overweight";
+    boxClass = "overweight";
+  } else {
+    category = "Obese";
+    boxClass = "obese";
+  }
+
+  // Create timestamp
+  const now = new Date();
+  const options = { day: "2-digit", month: "short", year: "numeric", hour: "2-digit", minute: "2-digit" };
+  const timestamp = now.toLocaleString("en-IN", options);
+
+  // Show result box
+  resultBox.style.display = "block";
+  resultBox.className = `bmi-result-box ${boxClass}`;
+  bmiValueDisplay.textContent = `Your BMI is ${bmi}`;
+  bmiCategoryDisplay.textContent = `Category: ${category}`;
+  bmiTimeDisplay.textContent = `Last calculated: ${timestamp}`;
+
+  // Hide input card
+  inputCard.style.display = "none";
+
+  // Save data
+  localStorage.setItem("bmi", bmi);
+  localStorage.setItem("bmiCategory", category);
+  localStorage.setItem("bmiClass", boxClass);
+  localStorage.setItem("height", h);
+  localStorage.setItem("weight", w);
+  localStorage.setItem("bmiTimestamp", timestamp);
+}
+
+// Load saved BMI
+window.addEventListener("load", () => {
+  const h = localStorage.getItem("height");
+  const w = localStorage.getItem("weight");
+  const bmi = localStorage.getItem("bmi");
+  const cat = localStorage.getItem("bmiCategory");
+  const cls = localStorage.getItem("bmiClass");
+  const timestamp = localStorage.getItem("bmiTimestamp");
+
+  const inputCard = document.getElementById("bmiInputCard");
+  const resultBox = document.getElementById("bmiResultBox");
+  const bmiValueDisplay = document.getElementById("bmiValueDisplay");
+  const bmiCategoryDisplay = document.getElementById("bmiCategoryDisplay");
+  const bmiTimeDisplay = document.getElementById("bmiTimeDisplay");
+
+  if (h && w && bmi && cat) {
+    inputCard.style.display = "none";
+    resultBox.style.display = "block";
+    resultBox.className = `bmi-result-box ${cls}`;
+    bmiValueDisplay.textContent = `Your BMI is ${bmi}`;
+    bmiCategoryDisplay.textContent = `Category: ${cat}`;
+    bmiTimeDisplay.textContent = timestamp ? `Last calculated: ${timestamp}` : "";
+  }
+});
+
+// Recalculate BMI
+function resetBMI() {
+  document.getElementById("bmiInputCard").style.display = "block";
+  document.getElementById("bmiResultBox").style.display = "none";
+}
+
+
   </script>
 </body>
 </html>
+
