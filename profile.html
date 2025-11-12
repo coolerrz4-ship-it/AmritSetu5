@@ -236,6 +236,46 @@
         justify-content: space-around;
       }
     }
+    .bmi-result-box {
+  background: #fff;
+  border-radius: 15px;
+  padding: 25px 20px;
+  max-width: 400px;
+  margin: 25px auto;
+  text-align: center;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  border-left: 6px solid #4a00e0;
+  transition: border-color 0.3s ease;
+}
+
+.bmi-result-box p {
+  font-size: 1.1rem;
+  margin: 10px 0;
+  font-weight: 500;
+}
+
+.bmi-result-box.normal { border-color: #4caf50; }
+.bmi-result-box.underweight { border-color: #2196f3; }
+.bmi-result-box.overweight { border-color: #ff9800; }
+.bmi-result-box.obese { border-color: #f44336; }
+
+.recalc-btn {
+  margin-top: 15px;
+  background: #2575fc;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 15px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.recalc-btn:hover {
+  background: #6a11cb;
+}
+
   </style>
 </head>
 <body>
@@ -302,17 +342,26 @@
       </section>
 
       <!-- BMI Tab -->
-      <section class="bmi-section" id="bmiSection">
-        <h1>BMI Tracker</h1>
-        <div class="bmi-card">
-          <label>Height (cm)</label>
-          <input type="number" id="height" placeholder="Enter your height" />
-          <label>Weight (kg)</label>
-          <input type="number" id="weight" placeholder="Enter your weight" />
-          <button onclick="calculateBMI()">Calculate BMI</button>
-          <div class="bmi-result" id="bmiResult"></div>
-        </div>
-      </section>
+     <!-- BMI Tab -->
+<section class="bmi-section" id="bmiSection">
+  <h1>BMI Tracker</h1>
+
+  <div class="bmi-card" id="bmiInputCard">
+    <label>Height (cm)</label>
+    <input type="number" id="height" placeholder="Enter your height" />
+    <label>Weight (kg)</label>
+    <input type="number" id="weight" placeholder="Enter your weight" />
+    <button onclick="calculateBMI()">Calculate BMI</button>
+  </div>
+
+  <div class="bmi-result-box" id="bmiResultBox" style="display:none;">
+    <h3>Your BMI Summary</h3>
+    <p id="bmiValueDisplay"></p>
+    <p id="bmiCategoryDisplay"></p>
+    <button class="recalc-btn" onclick="resetBMI()">🔄 Recalculate BMI</button>
+  </div>
+</section>
+
     </div>
   </div>
 
@@ -408,6 +457,84 @@
         document.getElementById("bmiResult").textContent = `Your BMI is ${bmi} (${cat})`;
       }
     });
+    // === BMI Tracker with Save & Recalculate ===
+function calculateBMI() {
+  const h = parseFloat(document.getElementById("height").value);
+  const w = parseFloat(document.getElementById("weight").value);
+  const inputCard = document.getElementById("bmiInputCard");
+  const resultBox = document.getElementById("bmiResultBox");
+  const bmiValueDisplay = document.getElementById("bmiValueDisplay");
+  const bmiCategoryDisplay = document.getElementById("bmiCategoryDisplay");
+
+  if (!h || !w) {
+    alert("⚠️ Please enter valid height and weight!");
+    return;
+  }
+
+  const bmi = (w / ((h / 100) ** 2)).toFixed(1);
+  let category = "";
+  let boxClass = "";
+
+  if (bmi < 18.5) {
+    category = "Underweight";
+    boxClass = "underweight";
+  } else if (bmi < 25) {
+    category = "Normal weight";
+    boxClass = "normal";
+  } else if (bmi < 30) {
+    category = "Overweight";
+    boxClass = "overweight";
+  } else {
+    category = "Obese";
+    boxClass = "obese";
+  }
+
+  // Show result box
+  resultBox.style.display = "block";
+  resultBox.className = `bmi-result-box ${boxClass}`;
+  bmiValueDisplay.textContent = `Your BMI is ${bmi}`;
+  bmiCategoryDisplay.textContent = `Category: ${category}`;
+
+  // Hide input card
+  inputCard.style.display = "none";
+
+  // Save data
+  localStorage.setItem("bmi", bmi);
+  localStorage.setItem("bmiCategory", category);
+  localStorage.setItem("bmiClass", boxClass);
+  localStorage.setItem("height", h);
+  localStorage.setItem("weight", w);
+}
+
+// Load saved BMI
+window.addEventListener("load", () => {
+  const h = localStorage.getItem("height");
+  const w = localStorage.getItem("weight");
+  const bmi = localStorage.getItem("bmi");
+  const cat = localStorage.getItem("bmiCategory");
+  const cls = localStorage.getItem("bmiClass");
+
+  const inputCard = document.getElementById("bmiInputCard");
+  const resultBox = document.getElementById("bmiResultBox");
+  const bmiValueDisplay = document.getElementById("bmiValueDisplay");
+  const bmiCategoryDisplay = document.getElementById("bmiCategoryDisplay");
+
+  if (h && w && bmi && cat) {
+    inputCard.style.display = "none";
+    resultBox.style.display = "block";
+    resultBox.className = `bmi-result-box ${cls}`;
+    bmiValueDisplay.textContent = `Your BMI is ${bmi}`;
+    bmiCategoryDisplay.textContent = `Category: ${cat}`;
+  }
+});
+
+// Recalculate BMI
+function resetBMI() {
+  document.getElementById("bmiInputCard").style.display = "block";
+  document.getElementById("bmiResultBox").style.display = "none";
+}
+
   </script>
 </body>
 </html>
+
