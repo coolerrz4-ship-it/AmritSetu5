@@ -438,25 +438,28 @@ canvas {
 
   <script src="auth-ui.js"></script>
   <script>
-    // Tab logic
-    const tabProfile = document.getElementById("tabProfile");
-    const tabBMI = document.getElementById("tabBMI");
-    const profileSection = document.getElementById("profileSection");
-    const bmiSection = document.getElementById("bmiSection");
+  // === Unified Tab Switching (Profile ⇄ BMI ⇄ Daily Goals) ===
+const tabProfile = document.getElementById("tabProfile");
+const tabBMI = document.getElementById("tabBMI");
+const tabGoals = document.getElementById("tabGoals");
 
-    tabProfile.addEventListener("click", () => {
-      tabProfile.classList.add("active");
-      tabBMI.classList.remove("active");
-      profileSection.classList.add("active");
-      bmiSection.classList.remove("active");
-    });
+const profileSection = document.getElementById("profileSection");
+const bmiSection = document.getElementById("bmiSection");
+const goalsSection = document.getElementById("goalsSection");
 
-    tabBMI.addEventListener("click", () => {
-      tabBMI.classList.add("active");
-      tabProfile.classList.remove("active");
-      bmiSection.classList.add("active");
-      profileSection.classList.remove("active");
-    });
+function activateTab(activeTab, activeSection) {
+  [tabProfile, tabBMI, tabGoals].forEach(t => t.classList.remove("active"));
+  [profileSection, bmiSection, goalsSection].forEach(s => s.style.display = "none");
+  
+  activeTab.classList.add("active");
+  activeSection.style.display = "block";
+}
+
+// Tab event listeners
+tabProfile.addEventListener("click", () => activateTab(tabProfile, profileSection));
+tabBMI.addEventListener("click", () => activateTab(tabBMI, bmiSection));
+tabGoals.addEventListener("click", () => activateTab(tabGoals, goalsSection));
+
 
     // Display user info
     document.getElementById("userName").textContent = user.name || "User";
@@ -648,5 +651,6 @@ window.addEventListener("load", () => {
   </script>
 </body>
 </html>
+
 
 
