@@ -1,34 +1,4 @@
-*
-:root {
-  --bg-color: #f9f9fb;
-  --text-color: #222;
-  --card-bg: #ffffff;
-  --primary: #6a11cb;
-  --secondary: #2575fc;
-}
-
-body.dark-mode {
-  --bg-color: #121212;
-  --text-color: #f5f5f5;
-  --card-bg: #1e1e1e;
-  --primary: #8e2de2;
-  --secondary: #4a00e0;
-}
-
-/* Apply globally */
-body {
-  background-color: var(--bg-color);
-  color: var(--text-color);
-  transition: background-color 0.4s ease, color 0.4s ease;
-}
-
-.card, .section, .navbar, .footer {
-  background: var(--card-bg);
-  color: var(--text-color);
-  transition: background 0.4s ease, color 0.4s ease;
-}
-
-{
+*{
   box-sizing: border-box;
   font-family: 'Segoe UI', sans-serif;
   margin: 0;
@@ -329,6 +299,7 @@ button:hover {
   align-items: center;
   padding: 12px;
 }
+
 
 
 
