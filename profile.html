@@ -358,6 +358,8 @@
     <h3>Your BMI Summary</h3>
     <p id="bmiValueDisplay"></p>
     <p id="bmiCategoryDisplay"></p>
+    <p id="bmiTimeDisplay" style="font-size: 0.95rem; color: #555; margin-top: 8px;"></p>
+
     <button class="recalc-btn" onclick="resetBMI()">🔄 Recalculate BMI</button>
   </div>
 </section>
@@ -421,43 +423,7 @@
       window.location.href = "index.html";
     });
 
-    // BMI logic
-    function calculateBMI() {
-      const h = parseFloat(document.getElementById("height").value);
-      const w = parseFloat(document.getElementById("weight").value);
-      const out = document.getElementById("bmiResult");
-
-      if (!h || !w) {
-        out.textContent = "⚠️ Please enter valid height and weight.";
-        return;
-      }
-
-      const bmi = (w / ((h / 100) ** 2)).toFixed(1);
-      let category = "";
-      if (bmi < 18.5) category = "Underweight";
-      else if (bmi < 25) category = "Normal weight";
-      else if (bmi < 30) category = "Overweight";
-      else category = "Obese";
-
-      out.textContent = `Your BMI is ${bmi} (${category})`;
-      localStorage.setItem("bmi", bmi);
-      localStorage.setItem("bmiCategory", category);
-      localStorage.setItem("height", h);
-      localStorage.setItem("weight", w);
-    }
-
-    window.addEventListener("load", () => {
-      const h = localStorage.getItem("height");
-      const w = localStorage.getItem("weight");
-      const bmi = localStorage.getItem("bmi");
-      const cat = localStorage.getItem("bmiCategory");
-      if (h && w) {
-        document.getElementById("height").value = h;
-        document.getElementById("weight").value = w;
-        document.getElementById("bmiResult").textContent = `Your BMI is ${bmi} (${cat})`;
-      }
-    });
-    // === BMI Tracker with Save & Recalculate ===
+// === BMI Tracker with Save, Recalculate & Timestamp ===
 function calculateBMI() {
   const h = parseFloat(document.getElementById("height").value);
   const w = parseFloat(document.getElementById("weight").value);
@@ -465,6 +431,7 @@ function calculateBMI() {
   const resultBox = document.getElementById("bmiResultBox");
   const bmiValueDisplay = document.getElementById("bmiValueDisplay");
   const bmiCategoryDisplay = document.getElementById("bmiCategoryDisplay");
+  const bmiTimeDisplay = document.getElementById("bmiTimeDisplay");
 
   if (!h || !w) {
     alert("⚠️ Please enter valid height and weight!");
@@ -489,11 +456,17 @@ function calculateBMI() {
     boxClass = "obese";
   }
 
+  // Create timestamp
+  const now = new Date();
+  const options = { day: "2-digit", month: "short", year: "numeric", hour: "2-digit", minute: "2-digit" };
+  const timestamp = now.toLocaleString("en-IN", options);
+
   // Show result box
   resultBox.style.display = "block";
   resultBox.className = `bmi-result-box ${boxClass}`;
   bmiValueDisplay.textContent = `Your BMI is ${bmi}`;
   bmiCategoryDisplay.textContent = `Category: ${category}`;
+  bmiTimeDisplay.textContent = `Last calculated: ${timestamp}`;
 
   // Hide input card
   inputCard.style.display = "none";
@@ -504,6 +477,7 @@ function calculateBMI() {
   localStorage.setItem("bmiClass", boxClass);
   localStorage.setItem("height", h);
   localStorage.setItem("weight", w);
+  localStorage.setItem("bmiTimestamp", timestamp);
 }
 
 // Load saved BMI
@@ -513,11 +487,13 @@ window.addEventListener("load", () => {
   const bmi = localStorage.getItem("bmi");
   const cat = localStorage.getItem("bmiCategory");
   const cls = localStorage.getItem("bmiClass");
+  const timestamp = localStorage.getItem("bmiTimestamp");
 
   const inputCard = document.getElementById("bmiInputCard");
   const resultBox = document.getElementById("bmiResultBox");
   const bmiValueDisplay = document.getElementById("bmiValueDisplay");
   const bmiCategoryDisplay = document.getElementById("bmiCategoryDisplay");
+  const bmiTimeDisplay = document.getElementById("bmiTimeDisplay");
 
   if (h && w && bmi && cat) {
     inputCard.style.display = "none";
@@ -525,6 +501,7 @@ window.addEventListener("load", () => {
     resultBox.className = `bmi-result-box ${cls}`;
     bmiValueDisplay.textContent = `Your BMI is ${bmi}`;
     bmiCategoryDisplay.textContent = `Category: ${cat}`;
+    bmiTimeDisplay.textContent = timestamp ? `Last calculated: ${timestamp}` : "";
   }
 });
 
@@ -534,7 +511,9 @@ function resetBMI() {
   document.getElementById("bmiResultBox").style.display = "none";
 }
 
+
   </script>
 </body>
 </html>
+
 
