@@ -1,5 +1,6 @@
 
 body {
+   font-family: "Helvetica Neue", Arial, sans-serif;
   background: #f8f9fc;
   color: #333;
   padding: 20px;
@@ -293,6 +294,7 @@ button:hover {
   align-items: center;
   padding: 12px;
 }
+
 
 
 
