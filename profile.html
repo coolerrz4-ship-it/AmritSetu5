@@ -275,6 +275,46 @@
 .recalc-btn:hover {
   background: #6a11cb;
 }
+/* === Daily Goals Section === */
+.goals-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 25px;
+  justify-content: center;
+  margin-top: 30px;
+}
+
+.goal-ring {
+  background: #fff;
+  border-radius: 20px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  padding: 25px;
+  text-align: center;
+  width: 260px;
+}
+
+canvas {
+  margin-top: 10px;
+}
+
+.sync-section {
+  text-align: center;
+  margin-top: 40px;
+}
+
+.sync-section button {
+  background: #4a00e0;
+  color: white;
+  padding: 10px 25px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.sync-section button:hover {
+  background: #8e2de2;
+}
 
   </style>
 </head>
@@ -302,6 +342,7 @@
       <h2>Account</h2>
       <div class="tab active" id="tabProfile">👤 Profile</div>
       <div class="tab" id="tabBMI">⚖️ BMI Tracker</div>
+      <div class="tab" id="tabGoals">🏃‍♂️ Daily Goals</div>
     </div>
 
     <div class="profile-content">
@@ -363,7 +404,33 @@
     <button class="recalc-btn" onclick="resetBMI()">🔄 Recalculate BMI</button>
   </div>
 </section>
+<!-- Daily Goals Section -->
+<section class="goals-section" id="goalsSection" style="display:none;">
+  <h1>Daily Goals</h1>
+  <div class="goals-grid">
+    <div class="goal-ring">
+      <h3>💧 Water Intake</h3>
+      <canvas id="ringWater" width="180" height="180"></canvas>
+      <p id="waterLabel">0 / 8 glasses</p>
+    </div>
+    <div class="goal-ring">
+      <h3>💤 Sleep Hours</h3>
+      <canvas id="ringSleep" width="180" height="180"></canvas>
+      <p id="sleepLabel">0 / 8 hrs</p>
+    </div>
+    <div class="goal-ring">
+      <h3>🚶 Steps</h3>
+      <canvas id="ringSteps" width="180" height="180"></canvas>
+      <p id="stepsLabel">0 / 10000</p>
+    </div>
+  </div>
 
+  <div class="sync-section">
+    <h3>🔗 Connect Fitness Tracker</h3>
+    <p>Simulate syncing with your wearable app.</p>
+    <button onclick="syncFitnessTracker()">Sync Now</button>
+  </div>
+</section>
     </div>
   </div>
 
@@ -511,8 +578,75 @@ function resetBMI() {
   document.getElementById("bmiResultBox").style.display = "none";
 }
 
+// === Sidebar Tab Extension ===
+const tabGoals = document.getElementById("tabGoals");
+const goalsSection = document.getElementById("goalsSection");
+
+tabGoals.addEventListener("click", () => {
+  [tabProfile, tabBMI, tabGoals].forEach(t => t.classList.remove("active"));
+  tabGoals.classList.add("active");
+  [profileSection, bmiSection, goalsSection].forEach(s => s.style.display = "none");
+  goalsSection.style.display = "block";
+});
+
+// === Daily Goals Logic with Animated Rings ===
+const goals = {
+  water: { current: 0, goal: 8, color: ['#36d1dc', '#5b86e5'] },
+  sleep: { current: 0, goal: 8, color: ['#8E2DE2', '#4A00E0'] },
+  steps: { current: 0, goal: 10000, color: ['#F7971E', '#FFD200'] }
+};
+
+function drawRing(id, value, max, gradientColors) {
+  const canvas = document.getElementById(id);
+  const ctx = canvas.getContext("2d");
+  const center = canvas.width / 2, radius = 70;
+  const endAngle = (value / max) * 2 * Math.PI;
+  const gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+  gradient.addColorStop(0, gradientColors[0]);
+  gradient.addColorStop(1, gradientColors[1]);
+
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.lineWidth = 12;
+  ctx.strokeStyle = "#eee";
+  ctx.beginPath();
+  ctx.arc(center, center, radius, 0, 2 * Math.PI);
+  ctx.stroke();
+
+  ctx.strokeStyle = gradient;
+  ctx.beginPath();
+  ctx.arc(center, center, radius, -Math.PI / 2, endAngle - Math.PI / 2);
+  ctx.stroke();
+}
+
+function renderGoals() {
+  drawRing("ringWater", goals.water.current, goals.water.goal, goals.water.color);
+  drawRing("ringSleep", goals.sleep.current, goals.sleep.goal, goals.sleep.color);
+  drawRing("ringSteps", goals.steps.current, goals.steps.goal, goals.steps.color);
+  document.getElementById("waterLabel").textContent = `${goals.water.current} / 8 glasses`;
+  document.getElementById("sleepLabel").textContent = `${goals.sleep.current} / 8 hrs`;
+  document.getElementById("stepsLabel").textContent = `${goals.steps.current} / 10000`;
+}
+
+function syncFitnessTracker() {
+  alert("📲 Syncing with your fitness tracker...");
+  goals.water.current = Math.min(8, Math.floor(Math.random() * 9));
+  goals.sleep.current = Math.min(8, Math.floor(Math.random() * 9));
+  goals.steps.current = Math.min(10000, Math.floor(Math.random() * 12000));
+  localStorage.setItem("goals", JSON.stringify(goals));
+  setTimeout(() => {
+    alert("✅ Synced successfully!");
+    renderGoals();
+  }, 800);
+}
+
+window.addEventListener("load", () => {
+  const saved = JSON.parse(localStorage.getItem("goals"));
+  if (saved) Object.assign(goals, saved);
+  renderGoals();
+});
 
   </script>
 </body>
 </html>
+
 
