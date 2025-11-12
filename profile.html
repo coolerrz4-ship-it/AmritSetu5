@@ -438,7 +438,7 @@ canvas {
 
   <script src="auth-ui.js"></script>
   <script>
-  // === Unified Tab Switching (Profile ⇄ BMI ⇄ Daily Goals) ===
+// === Unified Sidebar Tab Switching (Final Working Version) ===
 const tabProfile = document.getElementById("tabProfile");
 const tabBMI = document.getElementById("tabBMI");
 const tabGoals = document.getElementById("tabGoals");
@@ -447,18 +447,25 @@ const profileSection = document.getElementById("profileSection");
 const bmiSection = document.getElementById("bmiSection");
 const goalsSection = document.getElementById("goalsSection");
 
-function activateTab(activeTab, activeSection) {
-  [tabProfile, tabBMI, tabGoals].forEach(t => t.classList.remove("active"));
-  [profileSection, bmiSection, goalsSection].forEach(s => s.style.display = "none");
-  
-  activeTab.classList.add("active");
-  activeSection.style.display = "block";
+function showSection(tabToActivate, sectionToShow) {
+  // deactivate all tabs
+  [tabProfile, tabBMI, tabGoals].forEach(tab => tab.classList.remove("active"));
+  // hide all sections
+  [profileSection, bmiSection, goalsSection].forEach(sec => sec.style.display = "none");
+
+  // activate chosen tab + section
+  tabToActivate.classList.add("active");
+  sectionToShow.style.display = "block";
 }
 
-// Tab event listeners
-tabProfile.addEventListener("click", () => activateTab(tabProfile, profileSection));
-tabBMI.addEventListener("click", () => activateTab(tabBMI, bmiSection));
-tabGoals.addEventListener("click", () => activateTab(tabGoals, goalsSection));
+// event listeners
+tabProfile.addEventListener("click", () => showSection(tabProfile, profileSection));
+tabBMI.addEventListener("click", () => showSection(tabBMI, bmiSection));
+tabGoals.addEventListener("click", () => showSection(tabGoals, goalsSection));
+
+// set default view on load
+window.addEventListener("DOMContentLoaded", () => showSection(tabProfile, profileSection));
+
 
 
     // Display user info
@@ -651,6 +658,7 @@ window.addEventListener("load", () => {
   </script>
 </body>
 </html>
+
 
 
 
