@@ -438,35 +438,25 @@ canvas {
 
   <script src="auth-ui.js"></script>
   <script>
-// === Unified Sidebar Tab Switching (Final Working Version) ===
-const tabProfile = document.getElementById("tabProfile");
-const tabBMI = document.getElementById("tabBMI");
-const tabGoals = document.getElementById("tabGoals");
+    // Tab logic
+    const tabProfile = document.getElementById("tabProfile");
+    const tabBMI = document.getElementById("tabBMI");
+    const profileSection = document.getElementById("profileSection");
+    const bmiSection = document.getElementById("bmiSection");
 
-const profileSection = document.getElementById("profileSection");
-const bmiSection = document.getElementById("bmiSection");
-const goalsSection = document.getElementById("goalsSection");
+    tabProfile.addEventListener("click", () => {
+      tabProfile.classList.add("active");
+      tabBMI.classList.remove("active");
+      profileSection.classList.add("active");
+      bmiSection.classList.remove("active");
+    });
 
-function showSection(tabToActivate, sectionToShow) {
-  // deactivate all tabs
-  [tabProfile, tabBMI, tabGoals].forEach(tab => tab.classList.remove("active"));
-  // hide all sections
-  [profileSection, bmiSection, goalsSection].forEach(sec => sec.style.display = "none");
-
-  // activate chosen tab + section
-  tabToActivate.classList.add("active");
-  sectionToShow.style.display = "block";
-}
-
-// event listeners
-tabProfile.addEventListener("click", () => showSection(tabProfile, profileSection));
-tabBMI.addEventListener("click", () => showSection(tabBMI, bmiSection));
-tabGoals.addEventListener("click", () => showSection(tabGoals, goalsSection));
-
-// set default view on load
-window.addEventListener("DOMContentLoaded", () => showSection(tabProfile, profileSection));
-
-
+    tabBMI.addEventListener("click", () => {
+      tabBMI.classList.add("active");
+      tabProfile.classList.remove("active");
+      bmiSection.classList.add("active");
+      profileSection.classList.remove("active");
+    });
 
     // Display user info
     document.getElementById("userName").textContent = user.name || "User";
@@ -658,7 +648,4 @@ window.addEventListener("load", () => {
   </script>
 </body>
 </html>
-
-
-
 
