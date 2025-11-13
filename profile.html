@@ -315,6 +315,17 @@ canvas {
 .sync-section button:hover {
   background: #8e2de2;
 }
+.profile-section,
+.bmi-section,
+.goals-section {
+  display: none;
+}
+
+.profile-section.active,
+.bmi-section.active,
+.goals-section.active {
+  display: block;
+}
 
   </style>
 </head>
@@ -438,25 +449,30 @@ canvas {
 
   <script src="auth-ui.js"></script>
   <script>
-    // Tab logic
-    const tabProfile = document.getElementById("tabProfile");
-    const tabBMI = document.getElementById("tabBMI");
-    const profileSection = document.getElementById("profileSection");
-    const bmiSection = document.getElementById("bmiSection");
+  // === Tab Switching Logic (Fixed) ===
+const tabProfile = document.getElementById("tabProfile");
+const tabBMI = document.getElementById("tabBMI");
+const tabGoals = document.getElementById("tabGoals");
 
-    tabProfile.addEventListener("click", () => {
-      tabProfile.classList.add("active");
-      tabBMI.classList.remove("active");
-      profileSection.classList.add("active");
-      bmiSection.classList.remove("active");
-    });
+const profileSection = document.getElementById("profileSection");
+const bmiSection = document.getElementById("bmiSection");
+const goalsSection = document.getElementById("goalsSection");
 
-    tabBMI.addEventListener("click", () => {
-      tabBMI.classList.add("active");
-      tabProfile.classList.remove("active");
-      bmiSection.classList.add("active");
-      profileSection.classList.remove("active");
-    });
+function showTab(activeTab, activeSection) {
+  // Remove active class from all tabs
+  [tabProfile, tabBMI, tabGoals].forEach(t => t.classList.remove("active"));
+  // Hide all sections
+  [profileSection, bmiSection, goalsSection].forEach(s => s.classList.remove("active"));
+
+  // Activate selected
+  activeTab.classList.add("active");
+  activeSection.classList.add("active");
+}
+
+tabProfile.addEventListener("click", () => showTab(tabProfile, profileSection));
+tabBMI.addEventListener("click", () => showTab(tabBMI, bmiSection));
+tabGoals.addEventListener("click", () => showTab(tabGoals, goalsSection));
+
 
     // Display user info
     document.getElementById("userName").textContent = user.name || "User";
@@ -648,3 +664,4 @@ window.addEventListener("load", () => {
   </script>
 </body>
 </html>
+
