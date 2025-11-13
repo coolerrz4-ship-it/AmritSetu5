@@ -269,6 +269,15 @@
         justify-content: space-around;
       }
     }
+    .sync-section button {
+  background: #4a00e0;
+  color: blue;
+  padding: 10px 25px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 600;
+}
   </style>
 </head>
 <body>
@@ -327,6 +336,7 @@
           </div>
 
           <div class="actions">
+            <div class="sync-section button">
             <button onclick="syncFitnessTracker()">👟 Connect your Fitness Tracker</button>
             <button class="logout-btn" id="logoutBtn">Logout</button>
           </div>
@@ -499,4 +509,5 @@
   </script>
 </body>
 </html>
+
 
