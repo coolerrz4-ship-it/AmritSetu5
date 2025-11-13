@@ -441,8 +441,11 @@ canvas {
     // Tab logic
     const tabProfile = document.getElementById("tabProfile");
     const tabBMI = document.getElementById("tabBMI");
+    const tabGoals = document.getElementById("tabGoals");
     const profileSection = document.getElementById("profileSection");
     const bmiSection = document.getElementById("bmiSection");
+    const goalsSection = document.getElemetById("goalsSection");
+    
 
     tabProfile.addEventListener("click", () => {
       tabProfile.classList.add("active");
@@ -457,6 +460,21 @@ canvas {
       bmiSection.classList.add("active");
       profileSection.classList.remove("active");
     });
+    // === Fix Goals Tab Switching ===
+tabGoals.addEventListener("click", () => {
+  // Remove active class from all tabs
+  [tabProfile, tabBMI, tabGoals].forEach(t => t.classList.remove("active"));
+  tabGoals.classList.add("active");
+
+  // Hide all sections first
+  profileSection.classList.remove("active");
+  bmiSection.classList.remove("active");
+  goalsSection.classList.remove("active");
+
+  // Show only the goals section
+  goalsSection.classList.add("active");
+});
+
 
     // Display user info
     document.getElementById("userName").textContent = user.name || "User";
@@ -578,16 +596,6 @@ function resetBMI() {
   document.getElementById("bmiResultBox").style.display = "none";
 }
 
-// === Sidebar Tab Extension ===
-const tabGoals = document.getElementById("tabGoals");
-const goalsSection = document.getElementById("goalsSection");
-
-tabGoals.addEventListener("click", () => {
-  [tabProfile, tabBMI, tabGoals].forEach(t => t.classList.remove("active"));
-  tabGoals.classList.add("active");
-  [profileSection, bmiSection, goalsSection].forEach(s => s.style.display = "none");
-  goalsSection.style.display = "block";
-});
 
 // === Daily Goals Logic with Animated Rings ===
 const goals = {
@@ -648,3 +656,4 @@ window.addEventListener("load", () => {
   </script>
 </body>
 </html>
+
