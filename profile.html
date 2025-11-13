@@ -585,8 +585,7 @@ const goalsSection = document.getElementById("goalsSection");
 tabGoals.addEventListener("click", () => {
   [tabProfile, tabBMI, tabGoals].forEach(t => t.classList.remove("active"));
   tabGoals.classList.add("active");
-  [profileSection, bmiSection, goalsSection].forEach(s => s.style.display = "none");
-  goalsSection.style.display = "block";
+  
 });
 
 // === Daily Goals Logic with Animated Rings ===
@@ -648,3 +647,4 @@ window.addEventListener("load", () => {
   </script>
 </body>
 </html>
+
