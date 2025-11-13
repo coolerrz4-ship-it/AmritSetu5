@@ -327,7 +327,7 @@
           </div>
 
           <div class="actions">
-            <button class="export-btn" id="exportBtn">📄 Export My Health Data</button>
+            <button onclick="syncFitnessTracker()">👟 Connect your Fitness Tracker</button>
             <button class="logout-btn" id="logoutBtn">Logout</button>
           </div>
         </div>
@@ -402,9 +402,13 @@
     setupToggle("reminderToggle", "reminders", "📅 Appointment reminders on", "📅 Reminders off");
     setupToggle("dataConsentToggle", "dataConsent", "✅ Data sharing consent granted", "❌ Consent withdrawn");
 
-    document.getElementById("exportBtn").addEventListener("click", () =>
-      alert("📄 Your health data has been exported successfully! (Demo simulation)")
-    );
+   function syncFitnessTracker() {
+  alert("📲 Searching for available fitness trackers...");
+  setTimeout(() => {
+    alert("✅ Paired successfully! (demo)");
+    renderGoals();
+  }, 800);
+}
 
     document.getElementById("logoutBtn").addEventListener("click", () => {
       localStorage.removeItem("currentUser");
@@ -495,3 +499,4 @@
   </script>
 </body>
 </html>
+
