@@ -65,7 +65,7 @@
       display: block;
     }
 
-    /* Original Profile Styles */
+    /* Profile Styles */
     .profile-container {
       max-width: 700px;
       margin: 0 auto;
@@ -182,7 +182,7 @@
       color: #4a00e0;
     }
 
-    /* === BMI Section === */
+    /* BMI Section */
     .bmi-card {
       background: #fff;
       border-radius: 15px;
@@ -219,11 +219,44 @@
       background: #6a11cb;
     }
 
-    .bmi-result {
-      margin-top: 15px;
-      font-weight: 600;
-      font-size: 1.1rem;
+    .bmi-result-box {
+      background: #fff;
+      border-radius: 15px;
+      padding: 25px 20px;
+      max-width: 400px;
+      margin: 25px auto;
       text-align: center;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      border-left: 6px solid #4a00e0;
+      transition: border-color 0.3s ease;
+    }
+
+    .bmi-result-box p {
+      font-size: 1.1rem;
+      margin: 10px 0;
+      font-weight: 500;
+    }
+
+    .bmi-result-box.normal { border-color: #4caf50; }
+    .bmi-result-box.underweight { border-color: #2196f3; }
+    .bmi-result-box.overweight { border-color: #ff9800; }
+    .bmi-result-box.obese { border-color: #f44336; }
+
+    .recalc-btn {
+      margin-top: 15px;
+      background: #2575fc;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: 10px 15px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .recalc-btn:hover {
+      background: #6a11cb;
     }
 
     @media (max-width: 800px) {
@@ -236,86 +269,6 @@
         justify-content: space-around;
       }
     }
-    .bmi-result-box {
-  background: #fff;
-  border-radius: 15px;
-  padding: 25px 20px;
-  max-width: 400px;
-  margin: 25px auto;
-  text-align: center;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-  border-left: 6px solid #4a00e0;
-  transition: border-color 0.3s ease;
-}
-
-.bmi-result-box p {
-  font-size: 1.1rem;
-  margin: 10px 0;
-  font-weight: 500;
-}
-
-.bmi-result-box.normal { border-color: #4caf50; }
-.bmi-result-box.underweight { border-color: #2196f3; }
-.bmi-result-box.overweight { border-color: #ff9800; }
-.bmi-result-box.obese { border-color: #f44336; }
-
-.recalc-btn {
-  margin-top: 15px;
-  background: #2575fc;
-  color: #fff;
-  border: none;
-  border-radius: 8px;
-  padding: 10px 15px;
-  font-size: 1rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background 0.3s;
-}
-
-.recalc-btn:hover {
-  background: #6a11cb;
-}
-/* === Daily Goals Section === */
-.goals-grid {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 25px;
-  justify-content: center;
-  margin-top: 30px;
-}
-
-.goal-ring {
-  background: #fff;
-  border-radius: 20px;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-  padding: 25px;
-  text-align: center;
-  width: 260px;
-}
-
-canvas {
-  margin-top: 10px;
-}
-
-.sync-section {
-  text-align: center;
-  margin-top: 40px;
-}
-
-.sync-section button {
-  background: #4a00e0;
-  color: white;
-  padding: 10px 25px;
-  border: none;
-  border-radius: 10px;
-  cursor: pointer;
-  font-weight: 600;
-}
-
-.sync-section button:hover {
-  background: #8e2de2;
-}
-
   </style>
 </head>
 <body>
@@ -342,7 +295,6 @@ canvas {
       <h2>Account</h2>
       <div class="tab active" id="tabProfile">👤 Profile</div>
       <div class="tab" id="tabBMI">⚖️ BMI Tracker</div>
-      <div class="tab" id="tabGoals">🏃‍♂️ Daily Goals</div>
     </div>
 
     <div class="profile-content">
@@ -350,7 +302,6 @@ canvas {
       <section class="profile-section active" id="profileSection">
         <div class="profile-container">
           <h1>Your Profile</h1>
-
           <div class="info">
             <p><strong>Name:</strong> <span id="userName"></span></p>
             <p><strong>Email:</strong> <span id="userEmail"></span></p>
@@ -383,54 +334,24 @@ canvas {
       </section>
 
       <!-- BMI Tab -->
-     <!-- BMI Tab -->
-<section class="bmi-section" id="bmiSection">
-  <h1>BMI Tracker</h1>
+      <section class="bmi-section" id="bmiSection">
+        <h1>BMI Tracker</h1>
+        <div class="bmi-card" id="bmiInputCard">
+          <label>Height (cm)</label>
+          <input type="number" id="height" placeholder="Enter your height" />
+          <label>Weight (kg)</label>
+          <input type="number" id="weight" placeholder="Enter your weight" />
+          <button onclick="calculateBMI()">Calculate BMI</button>
+        </div>
 
-  <div class="bmi-card" id="bmiInputCard">
-    <label>Height (cm)</label>
-    <input type="number" id="height" placeholder="Enter your height" />
-    <label>Weight (kg)</label>
-    <input type="number" id="weight" placeholder="Enter your weight" />
-    <button onclick="calculateBMI()">Calculate BMI</button>
-  </div>
-
-  <div class="bmi-result-box" id="bmiResultBox" style="display:none;">
-    <h3>Your BMI Summary</h3>
-    <p id="bmiValueDisplay"></p>
-    <p id="bmiCategoryDisplay"></p>
-    <p id="bmiTimeDisplay" style="font-size: 0.95rem; color: #555; margin-top: 8px;"></p>
-
-    <button class="recalc-btn" onclick="resetBMI()">🔄 Recalculate BMI</button>
-  </div>
-</section>
-<!-- Daily Goals Section -->
-<section class="goals-section" id="goalsSection" style="display:none;">
-  <h1>Daily Goals</h1>
-  <div class="goals-grid">
-    <div class="goal-ring">
-      <h3>💧 Water Intake</h3>
-      <canvas id="ringWater" width="180" height="180"></canvas>
-      <p id="waterLabel">0 / 8 glasses</p>
-    </div>
-    <div class="goal-ring">
-      <h3>💤 Sleep Hours</h3>
-      <canvas id="ringSleep" width="180" height="180"></canvas>
-      <p id="sleepLabel">0 / 8 hrs</p>
-    </div>
-    <div class="goal-ring">
-      <h3>🚶 Steps</h3>
-      <canvas id="ringSteps" width="180" height="180"></canvas>
-      <p id="stepsLabel">0 / 10000</p>
-    </div>
-  </div>
-
-  <div class="sync-section">
-    <h3>🔗 Connect Fitness Tracker</h3>
-    <p>Simulate syncing with your wearable app.</p>
-    <button onclick="syncFitnessTracker()">Sync Now</button>
-  </div>
-</section>
+        <div class="bmi-result-box" id="bmiResultBox" style="display:none;">
+          <h3>Your BMI Summary</h3>
+          <p id="bmiValueDisplay"></p>
+          <p id="bmiCategoryDisplay"></p>
+          <p id="bmiTimeDisplay" style="font-size: 0.95rem; color: #555; margin-top: 8px;"></p>
+          <button class="recalc-btn" onclick="resetBMI()">🔄 Recalculate BMI</button>
+        </div>
+      </section>
     </div>
   </div>
 
@@ -490,161 +411,87 @@ canvas {
       window.location.href = "index.html";
     });
 
-// === BMI Tracker with Save, Recalculate & Timestamp ===
-function calculateBMI() {
-  const h = parseFloat(document.getElementById("height").value);
-  const w = parseFloat(document.getElementById("weight").value);
-  const inputCard = document.getElementById("bmiInputCard");
-  const resultBox = document.getElementById("bmiResultBox");
-  const bmiValueDisplay = document.getElementById("bmiValueDisplay");
-  const bmiCategoryDisplay = document.getElementById("bmiCategoryDisplay");
-  const bmiTimeDisplay = document.getElementById("bmiTimeDisplay");
+    // BMI Logic
+    function calculateBMI() {
+      const h = parseFloat(document.getElementById("height").value);
+      const w = parseFloat(document.getElementById("weight").value);
+      const inputCard = document.getElementById("bmiInputCard");
+      const resultBox = document.getElementById("bmiResultBox");
+      const bmiValueDisplay = document.getElementById("bmiValueDisplay");
+      const bmiCategoryDisplay = document.getElementById("bmiCategoryDisplay");
+      const bmiTimeDisplay = document.getElementById("bmiTimeDisplay");
 
-  if (!h || !w) {
-    alert("⚠️ Please enter valid height and weight!");
-    return;
-  }
+      if (!h || !w) {
+        alert("⚠️ Please enter valid height and weight!");
+        return;
+      }
 
-  const bmi = (w / ((h / 100) ** 2)).toFixed(1);
-  let category = "";
-  let boxClass = "";
+      const bmi = (w / ((h / 100) ** 2)).toFixed(1);
+      let category = "";
+      let boxClass = "";
 
-  if (bmi < 18.5) {
-    category = "Underweight";
-    boxClass = "underweight";
-  } else if (bmi < 25) {
-    category = "Normal weight";
-    boxClass = "normal";
-  } else if (bmi < 30) {
-    category = "Overweight";
-    boxClass = "overweight";
-  } else {
-    category = "Obese";
-    boxClass = "obese";
-  }
+      if (bmi < 18.5) {
+        category = "Underweight";
+        boxClass = "underweight";
+      } else if (bmi < 25) {
+        category = "Normal weight";
+        boxClass = "normal";
+      } else if (bmi < 30) {
+        category = "Overweight";
+        boxClass = "overweight";
+      } else {
+        category = "Obese";
+        boxClass = "obese";
+      }
 
-  // Create timestamp
-  const now = new Date();
-  const options = { day: "2-digit", month: "short", year: "numeric", hour: "2-digit", minute: "2-digit" };
-  const timestamp = now.toLocaleString("en-IN", options);
+      const now = new Date();
+      const options = { day: "2-digit", month: "short", year: "numeric", hour: "2-digit", minute: "2-digit" };
+      const timestamp = now.toLocaleString("en-IN", options);
 
-  // Show result box
-  resultBox.style.display = "block";
-  resultBox.className = `bmi-result-box ${boxClass}`;
-  bmiValueDisplay.textContent = `Your BMI is ${bmi}`;
-  bmiCategoryDisplay.textContent = `Category: ${category}`;
-  bmiTimeDisplay.textContent = `Last calculated: ${timestamp}`;
+      resultBox.style.display = "block";
+      resultBox.className = `bmi-result-box ${boxClass}`;
+      bmiValueDisplay.textContent = `Your BMI is ${bmi}`;
+      bmiCategoryDisplay.textContent = `Category: ${category}`;
+      bmiTimeDisplay.textContent = `Last calculated: ${timestamp}`;
 
-  // Hide input card
-  inputCard.style.display = "none";
+      inputCard.style.display = "none";
 
-  // Save data
-  localStorage.setItem("bmi", bmi);
-  localStorage.setItem("bmiCategory", category);
-  localStorage.setItem("bmiClass", boxClass);
-  localStorage.setItem("height", h);
-  localStorage.setItem("weight", w);
-  localStorage.setItem("bmiTimestamp", timestamp);
-}
+      localStorage.setItem("bmi", bmi);
+      localStorage.setItem("bmiCategory", category);
+      localStorage.setItem("bmiClass", boxClass);
+      localStorage.setItem("height", h);
+      localStorage.setItem("weight", w);
+      localStorage.setItem("bmiTimestamp", timestamp);
+    }
 
-// Load saved BMI
-window.addEventListener("load", () => {
-  const h = localStorage.getItem("height");
-  const w = localStorage.getItem("weight");
-  const bmi = localStorage.getItem("bmi");
-  const cat = localStorage.getItem("bmiCategory");
-  const cls = localStorage.getItem("bmiClass");
-  const timestamp = localStorage.getItem("bmiTimestamp");
+    window.addEventListener("load", () => {
+      const h = localStorage.getItem("height");
+      const w = localStorage.getItem("weight");
+      const bmi = localStorage.getItem("bmi");
+      const cat = localStorage.getItem("bmiCategory");
+      const cls = localStorage.getItem("bmiClass");
+      const timestamp = localStorage.getItem("bmiTimestamp");
 
-  const inputCard = document.getElementById("bmiInputCard");
-  const resultBox = document.getElementById("bmiResultBox");
-  const bmiValueDisplay = document.getElementById("bmiValueDisplay");
-  const bmiCategoryDisplay = document.getElementById("bmiCategoryDisplay");
-  const bmiTimeDisplay = document.getElementById("bmiTimeDisplay");
+      const inputCard = document.getElementById("bmiInputCard");
+      const resultBox = document.getElementById("bmiResultBox");
+      const bmiValueDisplay = document.getElementById("bmiValueDisplay");
+      const bmiCategoryDisplay = document.getElementById("bmiCategoryDisplay");
+      const bmiTimeDisplay = document.getElementById("bmiTimeDisplay");
 
-  if (h && w && bmi && cat) {
-    inputCard.style.display = "none";
-    resultBox.style.display = "block";
-    resultBox.className = `bmi-result-box ${cls}`;
-    bmiValueDisplay.textContent = `Your BMI is ${bmi}`;
-    bmiCategoryDisplay.textContent = `Category: ${cat}`;
-    bmiTimeDisplay.textContent = timestamp ? `Last calculated: ${timestamp}` : "";
-  }
-});
+      if (h && w && bmi && cat) {
+        inputCard.style.display = "none";
+        resultBox.style.display = "block";
+        resultBox.className = `bmi-result-box ${cls}`;
+        bmiValueDisplay.textContent = `Your BMI is ${bmi}`;
+        bmiCategoryDisplay.textContent = `Category: ${cat}`;
+        bmiTimeDisplay.textContent = timestamp ? `Last calculated: ${timestamp}` : "";
+      }
+    });
 
-// Recalculate BMI
-function resetBMI() {
-  document.getElementById("bmiInputCard").style.display = "block";
-  document.getElementById("bmiResultBox").style.display = "none";
-}
-
-// === Sidebar Tab Extension ===
-const tabGoals = document.getElementById("tabGoals");
-const goalsSection = document.getElementById("goalsSection");
-
-tabGoals.addEventListener("click", () => {
-  [tabProfile, tabBMI, tabGoals].forEach(t => t.classList.remove("active"));
-  tabGoals.classList.add("active");
-  
-});
-
-// === Daily Goals Logic with Animated Rings ===
-const goals = {
-  water: { current: 0, goal: 8, color: ['#36d1dc', '#5b86e5'] },
-  sleep: { current: 0, goal: 8, color: ['#8E2DE2', '#4A00E0'] },
-  steps: { current: 0, goal: 10000, color: ['#F7971E', '#FFD200'] }
-};
-
-function drawRing(id, value, max, gradientColors) {
-  const canvas = document.getElementById(id);
-  const ctx = canvas.getContext("2d");
-  const center = canvas.width / 2, radius = 70;
-  const endAngle = (value / max) * 2 * Math.PI;
-  const gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
-  gradient.addColorStop(0, gradientColors[0]);
-  gradient.addColorStop(1, gradientColors[1]);
-
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-  ctx.lineWidth = 12;
-  ctx.strokeStyle = "#eee";
-  ctx.beginPath();
-  ctx.arc(center, center, radius, 0, 2 * Math.PI);
-  ctx.stroke();
-
-  ctx.strokeStyle = gradient;
-  ctx.beginPath();
-  ctx.arc(center, center, radius, -Math.PI / 2, endAngle - Math.PI / 2);
-  ctx.stroke();
-}
-
-function renderGoals() {
-  drawRing("ringWater", goals.water.current, goals.water.goal, goals.water.color);
-  drawRing("ringSleep", goals.sleep.current, goals.sleep.goal, goals.sleep.color);
-  drawRing("ringSteps", goals.steps.current, goals.steps.goal, goals.steps.color);
-  document.getElementById("waterLabel").textContent = `${goals.water.current} / 8 glasses`;
-  document.getElementById("sleepLabel").textContent = `${goals.sleep.current} / 8 hrs`;
-  document.getElementById("stepsLabel").textContent = `${goals.steps.current} / 10000`;
-}
-
-function syncFitnessTracker() {
-  alert("📲 Syncing with your fitness tracker...");
-  goals.water.current = Math.min(8, Math.floor(Math.random() * 9));
-  goals.sleep.current = Math.min(8, Math.floor(Math.random() * 9));
-  goals.steps.current = Math.min(10000, Math.floor(Math.random() * 12000));
-  localStorage.setItem("goals", JSON.stringify(goals));
-  setTimeout(() => {
-    alert("✅ Synced successfully!");
-    renderGoals();
-  }, 800);
-}
-
-window.addEventListener("load", () => {
-  const saved = JSON.parse(localStorage.getItem("goals"));
-  if (saved) Object.assign(goals, saved);
-  renderGoals();
-});
-
+    function resetBMI() {
+      document.getElementById("bmiInputCard").style.display = "block";
+      document.getElementById("bmiResultBox").style.display = "none";
+    }
   </script>
 </body>
 </html>
-
